@@ -16,7 +16,7 @@ public class PlayerMover : MonoBehaviour
         _camera = Camera.main;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MovePlayerToMousePosition();
     }
