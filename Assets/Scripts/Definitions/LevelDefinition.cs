@@ -11,7 +11,7 @@ namespace Definitions
         [SerializeField] public GameObject finalPlatform;
         
         [SerializeField] public bool isEndlessMode = false;
-        [HideIf("isInfiniteMode", true)]
+        [HideIf("isEndlessMode", true)]
         [SerializeField] public int platformsToSpawn = 10;
         
         

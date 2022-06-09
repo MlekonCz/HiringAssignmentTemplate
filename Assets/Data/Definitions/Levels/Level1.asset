@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equationDefinitions:
   - {fileID: 11400000, guid: 70ef373bf97837a4da9f42dced53b4d0, type: 2}
-  - {fileID: 11400000, guid: 87d5b11f53317ef4aba4cdcd7ac86d3f, type: 2}
+  - {fileID: 11400000, guid: 13c239e52b03de84da1a651db6fe01b6, type: 2}
+  - {fileID: 11400000, guid: bfcd0b4394835be4ab7434ad421c76c5, type: 2}
   platformPrefabs:
   - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
   finalPlatform: {fileID: 8106234905510894871, guid: 15c7e366e14659b4c9454c7ad15fd23c,
     type: 3}
-  isInfiniteMode: 0
-  platformsToSpawn: 20
+  isEndlessMode: 0
+  platformsToSpawn: 10
