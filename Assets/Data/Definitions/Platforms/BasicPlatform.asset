@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: BasicPlatform
   m_EditorClassIdentifier: 
   equation: x + 5
-  platformModel: {fileID: 0}
+  platformPrefab: {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6,
+    type: 3}

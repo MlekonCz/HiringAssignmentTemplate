@@ -439,6 +439,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4559147151755205552, guid: 402e45c1047404f4b87b1b03bcecd7d6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15
+      objectReference: {fileID: 0}
     - target: {fileID: 8106234905510894870, guid: 402e45c1047404f4b87b1b03bcecd7d6,
         type: 3}
       propertyPath: m_RootOrder
@@ -545,11 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5446ea4248fd6348b5f039508277ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefabs:
-  - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
-  finalPlatform: {fileID: 8106234905510894871, guid: 15c7e366e14659b4c9454c7ad15fd23c,
-    type: 3}
-  platformsToSpawn: 10
+  levelDefinition: {fileID: 11400000, guid: 1b58c66b103b43a4da6242ea5523591e, type: 2}
 --- !u!1 &1585540025
 GameObject:
   m_ObjectHideFlags: 0

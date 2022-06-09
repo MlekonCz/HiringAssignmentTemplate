@@ -1,22 +1,20 @@
+using Definitions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class PlatformSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] platformPrefabs;
-    [SerializeField] private GameObject finalPlatform;
+    [SerializeField] private LevelDefinition levelDefinition;
 
-    [SerializeField] private int platformsToSpawn = 10;
-
-    private int currentlySpawnedPlatforms;
-    
+    private int _platformsToSpawn;
+    private int _currentlySpawnedPlatforms;
     private int _platformsSpawned = 0;
 
     private void Start()
     {
-        currentlySpawnedPlatforms = GameObject.FindGameObjectsWithTag(TagManager.Platform).Length;
-        Debug.Log(currentlySpawnedPlatforms);
-        _platformsSpawned = currentlySpawnedPlatforms;
+        _currentlySpawnedPlatforms = GameObject.FindGameObjectsWithTag(TagManager.Platform).Length;
+        _platformsSpawned = _currentlySpawnedPlatforms;
+        _platformsToSpawn = levelDefinition.platformsToSpawn;
     }
 
     private void Update()
@@ -26,18 +24,20 @@ public class PlatformSpawner : MonoBehaviour
 
     private void SpawnPlatform()
     {
-        if (_platformsSpawned < platformsToSpawn)
+        if (_platformsSpawned < _platformsToSpawn)
         {
             float zSpawnPosition = _platformsSpawned * 40;
-            Instantiate(platformPrefabs[Random.Range(0, platformPrefabs.Length)], new Vector3(0, -1.5f, zSpawnPosition),
-                Quaternion.identity);
+            
+            Instantiate(levelDefinition.platformDefinitions[Random.Range(0, levelDefinition.platformDefinitions.Length)].platformPrefab,
+                new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            
             _platformsSpawned++;
-            currentlySpawnedPlatforms++;
+            _currentlySpawnedPlatforms++;
         }
-        else if (_platformsSpawned == platformsToSpawn)
+        else if (_platformsSpawned == _platformsToSpawn)
         {
             float zSpawnPosition = _platformsSpawned * 40;
-            Instantiate(finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            Instantiate(levelDefinition.finalPlatform.platformPrefab, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
             _platformsSpawned++;
         }
     }
