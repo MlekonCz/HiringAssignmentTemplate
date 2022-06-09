@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a46add264549f4a9ec7a36b8250d4f, type: 3}
   m_Name: x+3
   m_EditorClassIdentifier: 
-  firstMathCharacter: 0
-  firstNumber: 0
-  secondMathCharacter: 1
-  secondNumber: 0
+  firstMathCharacter: 1
+  mathEquation: 8

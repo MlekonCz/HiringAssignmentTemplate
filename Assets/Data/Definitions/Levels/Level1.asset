@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426be4968dad40d79effbd84b8b7e37e, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  platformDefinitions:
-  - {fileID: 11400000, guid: 36c9a42f2473a9d49baa8a3c39678ffe, type: 2}
   equationDefinitions:
   - {fileID: 11400000, guid: 70ef373bf97837a4da9f42dced53b4d0, type: 2}
-  finalPlatform: {fileID: 11400000, guid: 30e0fed1abe43f548840ff2c5c1f0df9, type: 2}
+  - {fileID: 11400000, guid: 87d5b11f53317ef4aba4cdcd7ac86d3f, type: 2}
+  platformPrefabs:
+  - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
+  finalPlatform: {fileID: 8106234905510894871, guid: 15c7e366e14659b4c9454c7ad15fd23c,
+    type: 3}
   isInfiniteMode: 0
-  platformsToSpawn: 10
+  platformsToSpawn: 20

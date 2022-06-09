@@ -11,7 +11,6 @@ public class CameraHandler : MonoBehaviour
    {
       _player = GameObject.FindGameObjectWithTag(TagManager.Player);
       distanceBetweenPlayer = transform.position.z - _player.transform.position.z;
-      Debug.Log(distanceBetweenPlayer);
    }
 
    private void Update()

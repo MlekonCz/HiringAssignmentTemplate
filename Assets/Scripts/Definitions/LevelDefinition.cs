@@ -6,11 +6,11 @@ namespace Definitions
     [CreateAssetMenu(fileName = "LevelDefinition", order = 0)]
     public class LevelDefinition : ScriptableObject
     {
-        [SerializeField] public PlatformDefinition[] platformDefinitions;
         [SerializeField] public EquationDefinition[] equationDefinitions;
-        [SerializeField] public PlatformDefinition finalPlatform;
+        [SerializeField] public GameObject[] platformPrefabs;
+        [SerializeField] public GameObject finalPlatform;
         
-        [SerializeField] public bool isInfiniteMode = false;
+        [SerializeField] public bool isEndlessMode = false;
         [HideIf("isInfiniteMode", true)]
         [SerializeField] public int platformsToSpawn = 10;
         
