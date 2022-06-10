@@ -12,7 +12,7 @@ public class EquationProvider : MonoBehaviour
     private List<EquationDefinition> equation = new List<EquationDefinition>();
     private List<EquationDefinition> givenEquations = new List<EquationDefinition>();
 
-    private float highestPossibleNumber;
+    [SerializeField] private float highestPossibleNumber;
     private int currentNumber;
     
     private int index1;
@@ -27,13 +27,12 @@ public class EquationProvider : MonoBehaviour
     public List<EquationDefinition> GetMathEquations()
     {
         equation.Clear();
+        index1 = 0;
+        index2 = 0;
         
         var equationDefinition = levelDefinition.equationDefinitions;
         Debug.Log(equationDefinition[2]);
 
-
-        index1 = Random.Range(0, equationDefinition.Length);
-        index2 = Random.Range(0, equationDefinition.Length);
         while (index1 == index2)
         {
             index1 = Random.Range(0, equationDefinition.Length);
@@ -43,17 +42,21 @@ public class EquationProvider : MonoBehaviour
         equation.Add(equationDefinition[index1]); 
         equation.Add(equationDefinition[index2]); 
         
-        GetHigherNumber();
+        SimulateBestScore();
         
         return equation;
     }
 
-    private void GetHigherNumber()
+    private void SimulateBestScore()
     {
+        string number1 = highestPossibleNumber.ToString() + equation[0].mathEquation;
+        string number2 = highestPossibleNumber.ToString() + equation[1].mathEquation;
+        
         double firstNumber = Convert.ToDouble(new DataTable().Compute
-            (highestPossibleNumber.ToString() + equation[0].mathEquation,null));
+            (number1,null));
         double secondNumber = Convert.ToDouble(new DataTable().Compute
-            (highestPossibleNumber.ToString() + equation[1].mathEquation,null));
+            (number2,null));
+        
         if ((float)firstNumber > (float)secondNumber)
         {
             highestPossibleNumber = (float)firstNumber;
@@ -62,20 +65,31 @@ public class EquationProvider : MonoBehaviour
         {
             highestPossibleNumber = (float)secondNumber;
         }
+
+        highestPossibleNumber = Mathf.CeilToInt(highestPossibleNumber);
     }
 
-    public void SelectedMathEquation(String mathEquation)
+    public void ChosenMathEquation(String mathEquation)
     {
         Debug.Log(mathEquation);
         double result = Convert.ToDouble(new DataTable().Compute
             (currentNumber.ToString() + mathEquation,null));
 
         currentNumber = (int)result;
-        
-        
+
         Debug.Log(currentNumber);
     }
-    
+
+    public int GetNumberOfEnemies(float percentage)
+    {
+        int enemies = 0;
+
+        enemies = Mathf.CeilToInt(highestPossibleNumber * percentage);
+        enemies--;
+
+        highestPossibleNumber -= enemies;
+        return enemies;
+    }
     
 
 // String numberTest = "5 + 3";

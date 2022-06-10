@@ -7,6 +7,7 @@ namespace Platforms
     public class PlatformManager : MonoBehaviour
     {
         [SerializeField] private LevelDefinition levelDefinition;
+        private EquationProvider _equationProvider;
 
         private int _platformsToSpawn;
         private int _currentlySpawnedPlatforms;
@@ -14,6 +15,7 @@ namespace Platforms
 
         private void Start()
         {
+            _equationProvider = FindObjectOfType<EquationProvider>();
             _currentlySpawnedPlatforms = GameObject.FindGameObjectsWithTag(TagManager.Platform).Length;
             _platformsSpawned = _currentlySpawnedPlatforms;
             _platformsToSpawn = levelDefinition.platformsToSpawn;
@@ -26,27 +28,38 @@ namespace Platforms
 
         private void SpawnPlatform()
         {
+            //if (_currentlySpawnedPlatforms >= 4){return;}
+            
             if (_platformsSpawned < _platformsToSpawn)
             {
-                float zSpawnPosition = _platformsSpawned * 40;
-            
-                Instantiate(levelDefinition.platformPrefabs[Random.Range(0, levelDefinition.platformPrefabs.Length)],
-                    new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
-            
-                _platformsSpawned++;
-                _currentlySpawnedPlatforms++;
+                InstantiatePlatform();
             }
             else if (_platformsSpawned == _platformsToSpawn)
             {
-                float zSpawnPosition = _platformsSpawned * 40;
-                Instantiate(levelDefinition.finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
-                _platformsSpawned++;
+                InstantiateFinalPlatform();
             }
         }
-
-        private void AssignEquations()
+        
+        private void InstantiatePlatform()
         {
-            
+            float zSpawnPosition = _platformsSpawned * 40;
+
+            GameObject platform = Instantiate(
+                levelDefinition.platformPrefabs[Random.Range(0, levelDefinition.platformPrefabs.Length)],
+                new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+
+            platform.GetComponent<Platform>().Initialize(_equationProvider.GetMathEquations(),
+                _equationProvider.GetNumberOfEnemies(levelDefinition.difficultyOfNormalEnemies));
+
+            _platformsSpawned++;
+            _currentlySpawnedPlatforms++;
         }
+        private void InstantiateFinalPlatform()
+        {
+            float zSpawnPosition = _platformsSpawned * 40;
+            Instantiate(levelDefinition.finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            _platformsSpawned++;
+        }
+
     }
 }

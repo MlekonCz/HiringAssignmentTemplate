@@ -12,16 +12,21 @@ namespace Platforms
         [SerializeField] private GameObject rightWall;
 
         [SerializeField] private List<EquationDefinition> equations;
-        private EquationProvider equationProvider;
+        
+        private EquationProvider _equationProvider;
+
+        [SerializeField] private int enemies;
 
         private void Start()
         {
-            equations.Clear();
-            // String numberTest = "5 + 3";
-            // double result = Convert.ToDouble(new DataTable().Compute(numberTest, null));
             
-            equationProvider = FindObjectOfType<EquationProvider>();
-            foreach (var equation in equationProvider.GetMathEquations())
+        }
+
+        public void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
+        {
+            enemies = numberOfEnemies;
+            equations.Clear();
+            foreach (var equation in equationDefinitions)
             {
                 equations.Add(equation);
             }
@@ -30,6 +35,7 @@ namespace Platforms
 
         private void AssignEquations()
         {
+            
             leftWall.GetComponent<TMP_Text>().text ="x "  + equations[0].mathEquation; 
             rightWall.GetComponent<TMP_Text>().text ="x "  + equations[1].mathEquation;
         }
@@ -39,18 +45,12 @@ namespace Platforms
             canvas.SetActive(false);
             if (isLeft)
             {
-                equationProvider.SelectedMathEquation(equations[0].mathEquation);
+                _equationProvider.ChosenMathEquation(equations[0].mathEquation);
             }
             else
             {
-                equationProvider.SelectedMathEquation(equations[1].mathEquation);
+                _equationProvider.ChosenMathEquation(equations[1].mathEquation);
             }
         }
-        
-        private void Update()
-        {
-        
-        }
-
     }
 }

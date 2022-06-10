@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   equationDefinitions:
-  - {fileID: 11400000, guid: 70ef373bf97837a4da9f42dced53b4d0, type: 2}
-  - {fileID: 11400000, guid: 13c239e52b03de84da1a651db6fe01b6, type: 2}
-  - {fileID: 11400000, guid: bfcd0b4394835be4ab7434ad421c76c5, type: 2}
+  - {fileID: 11400000, guid: 9cddce99d68e3564d9b9e67e4b1ebe1b, type: 2}
+  - {fileID: 11400000, guid: a2e68c652342b7943a389b73c78bfc29, type: 2}
   platformPrefabs:
   - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
   finalPlatform: {fileID: 8106234905510894871, guid: 15c7e366e14659b4c9454c7ad15fd23c,
     type: 3}
+  startingPlatform: {fileID: 8106234905510894871, guid: a4edf8eeda3b0af4f87fea8e312a1a81,
+    type: 3}
   isEndlessMode: 0
   platformsToSpawn: 10
+  difficultyOfNormalEnemies: 0.403
+  difficultyOfBoss: 0.929

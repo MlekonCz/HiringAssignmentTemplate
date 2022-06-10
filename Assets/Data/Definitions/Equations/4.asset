@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07a46add264549f4a9ec7a36b8250d4f, type: 3}
-  m_Name: 1 1
+  m_Name: 4
   m_EditorClassIdentifier: 
-  mathEquation: '- 5 + 4'
+  mathEquation: '* 2'
