@@ -11,6 +11,9 @@ namespace Player
         [SerializeField] private float startingNumber = 1f;
         public float currentNumber;
 
+        public delegate void CallBackType(bool playerWon);
+        public event CallBackType playerLost;
+
 
         private void Awake()
         {
@@ -25,17 +28,25 @@ namespace Player
             Debug.Log(mathEquation);
             double result = Convert.ToDouble(new DataTable().Compute
                 (number,null));
-
             
-            currentNumber = Mathf.CeilToInt((int)result);
+            Mathf.CeilToInt((int)result);
+            Mathf.Clamp((int)result, 1, Mathf.Infinity);
+            currentNumber = (int)result;
             
             UpdateUiNumber();
         }
 
-        public void FacedEnemies(int numberOfEnemies)
+        public bool FacedEnemies(int numberOfEnemies)
         {
             currentNumber -= numberOfEnemies;
             UpdateUiNumber();
+
+            if (currentNumber <= 0)
+            {
+                playerLost?.Invoke(false);
+            }
+
+            return true;
         }
         private void UpdateUiNumber()
         {

@@ -28,5 +28,5 @@ MonoBehaviour:
     type: 3}
   isEndlessMode: 0
   platformsToSpawn: 10
-  difficultyOfNormalEnemies: 0.5
+  difficultyOfNormalEnemies: 0.4
   difficultyOfBoss: 0.9

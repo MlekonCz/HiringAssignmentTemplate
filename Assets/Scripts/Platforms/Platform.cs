@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Definitions;
 using Player;
@@ -25,6 +26,7 @@ namespace Platforms
 
         [SerializeField] private bool isFinalPlatform = false;
 
+        public event Action levelFinished;
 
         public void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
         {
@@ -68,11 +70,17 @@ namespace Platforms
         }
         public void TriggerEnemyArea(GameObject triggerArea, GameObject player)
         {
-            triggerArea.SetActive(false);
-            player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies);
-            if (isFinalPlatform)
+            if (isFinalPlatform )
             {
-                //Todo Winning logic
+                if (player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies))
+                {
+                    levelFinished?.Invoke();
+                }
+            }
+            else
+            {
+                triggerArea.SetActive(false);
+                player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies);
             }
             
         }

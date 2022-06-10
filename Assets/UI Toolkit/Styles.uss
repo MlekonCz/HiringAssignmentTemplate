@@ -1,0 +1,38 @@
+.button-style {
+    height: 105px;
+    width: 295px;
+    background-image: url('project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Common/button_blue.png?fileID=21300000&guid=6bbcba4e267be464998897741b81d508&type=3#button_blue');
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    font-size: 40px;
+    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.button-style:hover {
+    height: 105px;
+    width: 295px;
+    background-image: url('project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Common/button_blue.png?fileID=21300000&guid=6bbcba4e267be464998897741b81d508&type=3#button_blue');
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    font-size: 40px;
+    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: rgb(154, 210, 245);
+}
+
+.button-style:active {
+    height: 105px;
+    width: 295px;
+    background-image: url('project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Common/button_blue.png?fileID=21300000&guid=6bbcba4e267be464998897741b81d508&type=3#button_blue');
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    font-size: 40px;
+    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: rgb(62, 178, 250);
+}

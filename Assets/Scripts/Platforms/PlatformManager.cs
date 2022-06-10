@@ -1,3 +1,4 @@
+using System;
 using Definitions;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -6,12 +7,15 @@ namespace Platforms
 {
     public class PlatformManager : MonoBehaviour
     {
-        [SerializeField] private LevelDefinition levelDefinition;
+        private LevelDefinition levelDefinition;
         private EquationProvider _equationProvider;
 
         private int _platformsToSpawn;
         private int _currentlySpawnedPlatforms;
         private int _platformsSpawned = 0;
+
+        public delegate void CallBackType(bool playerWon);
+        public event CallBackType levelFinished;
 
         private void Start()
         {
@@ -19,6 +23,11 @@ namespace Platforms
             _currentlySpawnedPlatforms = GameObject.FindGameObjectsWithTag(TagManager.Platform).Length;
             _platformsSpawned = _currentlySpawnedPlatforms;
             _platformsToSpawn = levelDefinition.platformsToSpawn;
+        }
+
+        public void Initialize(LevelDefinition currentLevel)
+        {
+            levelDefinition = currentLevel;
         }
 
         private void Update()
@@ -69,7 +78,16 @@ namespace Platforms
             platform.GetComponent<Platform>().Initialize(_equationProvider.GetNumberOfEnemies
                 (levelDefinition.difficultyOfBoss));
             _platformsSpawned++;
+            SubscribeToFinalPlatform(platform);
         }
         #endregion
+        private void SubscribeToFinalPlatform(GameObject finalPlatform)
+        {
+            finalPlatform.GetComponent<Platform>().levelFinished += CurrentLevelFinished;
+        }
+        private void CurrentLevelFinished()
+        {
+            levelFinished?.Invoke(true);
+        }
     }
 }

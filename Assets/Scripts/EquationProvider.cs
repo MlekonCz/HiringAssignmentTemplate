@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class EquationProvider : MonoBehaviour
 {
-    [SerializeField] private LevelDefinition levelDefinition;
+    private LevelDefinition levelDefinition;
     private List<EquationDefinition> equation = new List<EquationDefinition>();
     private List<EquationDefinition> givenEquations = new List<EquationDefinition>();
 
@@ -22,6 +22,10 @@ public class EquationProvider : MonoBehaviour
     {
         highestPossibleNumber = FindObjectOfType<PlayerManager>().currentNumber;
         currentNumber = Mathf.FloorToInt(highestPossibleNumber);
+    }
+    public void Initialize(LevelDefinition currentLevel)
+    {
+        levelDefinition = currentLevel;
     }
 
     public List<EquationDefinition> GetMathEquations()
