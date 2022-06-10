@@ -29,8 +29,11 @@ namespace Platforms
         private void SpawnPlatform()
         {
             //if (_currentlySpawnedPlatforms >= 4){return;}
-            
-            if (_platformsSpawned < _platformsToSpawn)
+            if (_platformsSpawned == 0)
+            {
+                InstantiateStartingPlatform();
+            }
+            else if (_platformsSpawned < _platformsToSpawn)
             {
                 InstantiatePlatform();
             }
@@ -39,7 +42,12 @@ namespace Platforms
                 InstantiateFinalPlatform();
             }
         }
-        
+        #region spawningPlatforms
+        private void InstantiateStartingPlatform()
+        {
+            Instantiate(levelDefinition.startingPlatform, new Vector3(0, -1.5f, 0), Quaternion.identity);
+            _platformsSpawned++;
+        }
         private void InstantiatePlatform()
         {
             float zSpawnPosition = _platformsSpawned * 40;
@@ -57,9 +65,11 @@ namespace Platforms
         private void InstantiateFinalPlatform()
         {
             float zSpawnPosition = _platformsSpawned * 40;
-            Instantiate(levelDefinition.finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            GameObject platform = Instantiate(levelDefinition.finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            platform.GetComponent<Platform>().Initialize(_equationProvider.GetNumberOfEnemies
+                (levelDefinition.difficultyOfBoss));
             _platformsSpawned++;
         }
-
+        #endregion
     }
 }

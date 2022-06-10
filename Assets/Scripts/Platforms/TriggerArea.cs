@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Platforms
 {
-    public class MathGateTrigger : MonoBehaviour
+    public class TriggerArea : MonoBehaviour
     {
         [SerializeField] private GameObject platform;
         
@@ -11,9 +11,14 @@ namespace Platforms
         private void OnTriggerEnter(Collider other)
         {
         
-            if (other.gameObject.CompareTag(TagManager.Player))
+            if (other.gameObject.CompareTag(TagManager.Player) && !isEnemyArea)
             {
-                platform.GetComponent<Platform>().TriggerMathGate(isLeft);
+                platform.GetComponent<Platform>().TriggerMathGate(isLeft, other.gameObject);
+            }
+
+            if (other.gameObject.CompareTag(TagManager.Player) && isEnemyArea)
+            {
+                platform.GetComponent<Platform>().TriggerEnemyArea(gameObject,other.gameObject);
             }
         }
     }

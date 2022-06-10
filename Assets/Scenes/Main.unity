@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDefinition: {fileID: 11400000, guid: 1b58c66b103b43a4da6242ea5523591e, type: 2}
+  highestPossibleNumber: 0
 --- !u!4 &112923234
 Transform:
   m_ObjectHideFlags: 0
@@ -812,7 +813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingNumber: 1
-  currentNumber: 0
+  currentNumber: 1
 --- !u!54 &1897463711
 Rigidbody:
   m_ObjectHideFlags: 0

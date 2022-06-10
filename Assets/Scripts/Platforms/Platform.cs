@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Definitions;
+using Player;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -7,20 +9,22 @@ namespace Platforms
 {
     public class Platform : MonoBehaviour
     {
+        [HideIf("isFinalPlatform", true)]
         [SerializeField] private GameObject canvas;
-        [SerializeField] private GameObject leftWall;
-        [SerializeField] private GameObject rightWall;
-
-        [SerializeField] private List<EquationDefinition> equations;
+        [HideIf("isFinalPlatform", true)]
+        [SerializeField] private TMP_Text leftWall;
+        [HideIf("isFinalPlatform", true)]
+        [SerializeField] private TMP_Text rightWall;
         
+        [SerializeField] private TMP_Text enemyNumber;
+
+        private List<EquationDefinition> equations = new List<EquationDefinition>();
         private EquationProvider _equationProvider;
 
-        [SerializeField] private int enemies;
+        private int enemies;
 
-        private void Start()
-        {
-            
-        }
+        [SerializeField] private bool isFinalPlatform = false;
+
 
         public void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
         {
@@ -31,26 +35,46 @@ namespace Platforms
                 equations.Add(equation);
             }
             AssignEquations();
+            AssignEnemyNumber();
         }
+        public void Initialize(int numberOfEnemies)
+        {
+            enemies = numberOfEnemies;
+            AssignEnemyNumber();
+        }
+
 
         private void AssignEquations()
         {
-            
-            leftWall.GetComponent<TMP_Text>().text ="x "  + equations[0].mathEquation; 
-            rightWall.GetComponent<TMP_Text>().text ="x "  + equations[1].mathEquation;
+            leftWall.text ="x "  + equations[0].mathEquation; 
+            rightWall.text ="x "  + equations[1].mathEquation;
         }
 
-        public void TriggerMathGate(bool isLeft)
+        private void AssignEnemyNumber()
+        {
+            enemyNumber.text = enemies.ToString();
+        }
+        public void TriggerMathGate(bool isLeft,GameObject player)
         {
             canvas.SetActive(false);
             if (isLeft)
             {
-                _equationProvider.ChosenMathEquation(equations[0].mathEquation);
+                player.GetComponentInParent<PlayerManager>().ChosenMathEquation(equations[0].mathEquation);
             }
             else
             {
-                _equationProvider.ChosenMathEquation(equations[1].mathEquation);
+                player.GetComponentInParent<PlayerManager>().ChosenMathEquation(equations[1].mathEquation);
             }
+        }
+        public void TriggerEnemyArea(GameObject triggerArea, GameObject player)
+        {
+            triggerArea.SetActive(false);
+            player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies);
+            if (isFinalPlatform)
+            {
+                //Todo Winning logic
+            }
+            
         }
     }
 }

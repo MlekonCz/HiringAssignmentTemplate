@@ -69,25 +69,17 @@ public class EquationProvider : MonoBehaviour
         highestPossibleNumber = Mathf.CeilToInt(highestPossibleNumber);
     }
 
-    public void ChosenMathEquation(String mathEquation)
-    {
-        Debug.Log(mathEquation);
-        double result = Convert.ToDouble(new DataTable().Compute
-            (currentNumber.ToString() + mathEquation,null));
-
-        currentNumber = (int)result;
-
-        Debug.Log(currentNumber);
-    }
+  
 
     public int GetNumberOfEnemies(float percentage)
     {
         int enemies = 0;
 
         enemies = Mathf.CeilToInt(highestPossibleNumber * percentage);
-        enemies--;
+        enemies -= 1;
 
         highestPossibleNumber -= enemies;
+        Debug.Log(enemies);
         return enemies;
     }
     
