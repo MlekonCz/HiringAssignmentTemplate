@@ -12,9 +12,9 @@ namespace Player
             _animator = GetComponent<Animator>();
         }
 
-        public void PlayTargetAnimation(string targetAnim)
+        public void PlayTargetAnimation(string targetAnim, float transitionDuration)
         {
-            _animator.CrossFade(targetAnim, 0.2f);
+            _animator.CrossFade(targetAnim, transitionDuration);
         }
     }
 }

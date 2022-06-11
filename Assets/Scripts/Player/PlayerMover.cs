@@ -11,6 +11,7 @@ namespace Player
         private Camera _camera;
 
         [SerializeField] private float playerSpeed = 5f;
+        private bool isAlive = true;
 
         private void Awake()
         {
@@ -24,6 +25,7 @@ namespace Player
 
         private void MovePlayerToMousePosition()
         {
+            if (!isAlive){return;}
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit,float .MaxValue,layerMask))
             {
@@ -34,8 +36,13 @@ namespace Player
             else
             {
                 _lastPosition.z = transform.position.z + playerSpeed;
-                transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * 2);
+               transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * 2);
             }
+        }
+
+        public void StopPlayer()
+        {
+            isAlive = false;
         }
 
 

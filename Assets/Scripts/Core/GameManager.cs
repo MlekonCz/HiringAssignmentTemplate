@@ -1,4 +1,3 @@
-using System;
 using Definitions;
 using Platforms;
 using Player;
@@ -12,11 +11,6 @@ namespace Core
 
         [SerializeField] private LevelDefinition levelDefinition;
         private LevelUiController _levelUiController;
-
-        private void Initialize()
-        {
-            
-        }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
@@ -33,21 +27,6 @@ namespace Core
            FindObjectOfType<PlatformManager>().levelFinished += LevelFinished;
            FindObjectOfType<PlayerManager>().playerLost += LevelFinished;
         }
-
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
         private void LevelFinished(bool playerWon)
         {
             if (playerWon)
@@ -63,7 +42,6 @@ namespace Core
         #region Subscriptions
         private void OnEnable()
         {
-            
             SceneManager.sceneUnloaded += OnSceneUnLoaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -75,11 +53,10 @@ namespace Core
             {
                 return;
             } 
-            // FindObjectOfType<PlatformManager>().levelFinished -= LevelFinished;
-           // FindObjectOfType<PlayerManager>().playerLost -= LevelFinished;
         }
         private void OnDisable()
         {
+            SceneManager.sceneUnloaded -= OnSceneUnLoaded;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
         #endregion

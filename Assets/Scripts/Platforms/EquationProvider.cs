@@ -84,7 +84,7 @@ namespace Platforms
             enemies = Mathf.FloorToInt(highestPossibleNumber * percentage);
             enemies -= 1;
         
-            if (enemies == 0)
+            if (enemies <= 0)
             {
                 enemies = 1;
             }

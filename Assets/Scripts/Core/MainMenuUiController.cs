@@ -11,31 +11,32 @@ namespace Core
         private Button endlessModeButton;
         private Button quitButton;
 
+        private SceneLoader _sceneLoader;
+
 
         private void Awake()
         {
+            _sceneLoader = FindObjectOfType<SceneLoader>();
             var root = GetComponent<UIDocument>().rootVisualElement;
 
             startButton = root.Q<Button>("Start-button");
             endlessModeButton = root.Q<Button>("Endless-button");
             quitButton = root.Q<Button>("Quit-button");
-
-          
         }
 
         private void StartButtonPressed()
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            _sceneLoader.LoadNextScene();
         }
 
         private void EndlessButtonPressed()
         {
-            SceneManager.LoadSceneAsync("EndlessMode");
+            _sceneLoader.LoadScene("EndlessMode");
         }
 
         private void QuitButtonPressed()
         {
-            Application.Quit();
+            _sceneLoader.QuitGame();
         }
 
 

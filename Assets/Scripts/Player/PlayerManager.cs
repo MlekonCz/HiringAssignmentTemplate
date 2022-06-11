@@ -36,29 +36,42 @@ namespace Player
                 (number,null));
             
             Mathf.CeilToInt((int)result);
-            Mathf.Clamp((int)result, 1, Mathf.Infinity);
             currentNumber = (int)result;
+            if (currentNumber <1)
+            {
+                currentNumber = 1;
+            }
             
             UpdateUiNumber();
         }
 
         public bool FacedEnemies(int numberOfEnemies)
         {
-            _animatorHandler.PlayTargetAnimation("WallHit");
+            _animatorHandler.PlayTargetAnimation("WallHit",0.2f);
             currentNumber -= numberOfEnemies;
             UpdateUiNumber();
 
             if (currentNumber <= 0)
             {
+                GetComponent<PlayerMover>().StopPlayer();
+                _animatorHandler.PlayTargetAnimation("Fall",0f);
                 playerLost?.Invoke(false);
                 return false;
             }
-
-            return true;
+            else
+            {
+                return true;
+            }
         }
         private void UpdateUiNumber()
         {
             playerNumber_UI.text = currentNumber.ToString();
+        }
+
+        public void LevelFinished()
+        {
+            _animatorHandler.PlayTargetAnimation("Victory",0.3f);
+            GetComponent<PlayerMover>().StopPlayer();
         }
     }
 }

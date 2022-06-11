@@ -4,7 +4,7 @@ namespace Core
 {
     public class PersistentObjectSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject[] persistentObjectPrefab = null;
+        [SerializeField] private GameObject persistentObjectPrefab = null;
 
         private static bool _hasSpawned = false;
 
@@ -17,11 +17,8 @@ namespace Core
 
         private void SpawnPersistentObject()
         {
-            for (int i = 0; i < persistentObjectPrefab.Length - 1; i++)
-            {
-                GameObject persistentObject = Instantiate(persistentObjectPrefab[i]);
-                DontDestroyOnLoad(persistentObject);
-            }
+            GameObject persistentObject = Instantiate(persistentObjectPrefab);
+            DontDestroyOnLoad(persistentObject);
         }
     }
 }

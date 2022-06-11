@@ -33,9 +33,6 @@ namespace Platforms
         {
             _platformPool = new ObjectPool<GameObject>(CreatePlatform, OnGet, OnRelease, maxSize: 6);
         }
-
-
-
         private GameObject CreatePlatform()
         {
             float zSpawnPosition = _platformsSpawned * distanceBetweenPlatforms;
@@ -43,9 +40,6 @@ namespace Platforms
             GameObject platform = Instantiate(
                 levelDefinition.platformPrefabs[Random.Range(0, levelDefinition.platformPrefabs.Length)],
                 new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
-            // platform.GetComponent<NormalPlatform>().Initialize(_equationProvider.GetMathEquations(),
-            //     _equationProvider.GetNumberOfEnemies(levelDefinition.difficultyOfNormalEnemies));
-
             platform.GetComponent<NormalPlatform>().platformCleared += OnRelease;
             platform.GetComponent<NormalPlatform>().SetPool(_platformPool);
             
@@ -76,18 +70,6 @@ namespace Platforms
             platform.SetActive(false);
             _currentlySpawnedPlatforms--;
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         private void Start()
         {
             _equationProvider = FindObjectOfType<EquationProvider>();

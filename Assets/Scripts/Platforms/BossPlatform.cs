@@ -1,6 +1,5 @@
 ﻿using System;
 using Player;
-using TMPro;
 using UnityEngine;
 
 namespace Platforms
@@ -13,10 +12,13 @@ namespace Platforms
         
         public override void TriggerEnemyArea(GameObject triggerArea, GameObject player)
         {
-            triggerArea.SetActive(false);
+            
             if (player.GetComponent<PlayerManager>().FacedEnemies(enemies))
             {
+                player.GetComponent<PlayerManager>().LevelFinished();
+                triggerArea.SetActive(false);
                 levelFinished?.Invoke();
+                DestroyWall(player);
             }
         }
     }

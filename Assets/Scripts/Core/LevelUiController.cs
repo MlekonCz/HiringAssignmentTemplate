@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Core
@@ -24,8 +23,11 @@ namespace Core
 
         private VisualElement root;
 
+        private SceneLoader _sceneLoader;
+        
         private void Awake()
         {
+            _sceneLoader = FindObjectOfType<SceneLoader>();
             root = GetComponent<UIDocument>().rootVisualElement;
             AssignUiElements();
         }
@@ -57,18 +59,22 @@ namespace Core
 
         public void ShowWonMenu()
         {
-            _wonMenu.visible = true;
-            Time.timeScale = 0;
+            StartCoroutine(DelayedWindowPopUp(_wonMenu, 2f));
         }
-
         public void ShowLostMenu()
         {
-            _lostMenu.visible = true;
-            Time.timeScale = 0;
+            StartCoroutine(DelayedWindowPopUp(_lostMenu, 2f));
         }
         private void ShowPauseMenu()
         {
             _pauseMenu.visible = true;
+            Time.timeScale = 0;
+        }
+
+        private IEnumerator DelayedWindowPopUp(VisualElement visualElement, float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
+            visualElement.visible = true;
             Time.timeScale = 0;
         }
 
@@ -81,17 +87,18 @@ namespace Core
         private void LoadNextLevel()
         {
             Time.timeScale = 1;
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            _sceneLoader.LoadNextScene();
+            
         }
         private void RestartLevel()
         {
-            Time.timeScale = 1;
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+            Time.timeScale = 1; 
+            _sceneLoader.RestartCurrentScene();
         }
         private void QuitToMainMenu()
         {
             Time.timeScale = 1;
-            SceneManager.LoadSceneAsync(0);
+            _sceneLoader.LoadMainMenu();
         }
 
         private void OnEnable()
@@ -116,6 +123,8 @@ namespace Core
             _pauseButton.clicked -= ShowPauseMenu;
             _continueButton.clicked -= HidePauseMenu;
 
+            _nextLevelButton.clicked -= LoadNextLevel;
+            _restartButton.clicked -= RestartLevel;
 
         }
     }

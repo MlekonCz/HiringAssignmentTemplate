@@ -47,9 +47,10 @@ namespace Platforms
 
         public virtual void TriggerEnemyArea(GameObject triggerArea, GameObject player)
         {
-            triggerArea.SetActive(false);
+            
             if ( player.GetComponent<PlayerManager>().FacedEnemies(enemies))
             { 
+                triggerArea.SetActive(false);
                 platformCleared?.Invoke(gameObject); 
                 DestroyWall(player);
             }
@@ -57,7 +58,7 @@ namespace Platforms
             
         }
 
-        private void DestroyWall(GameObject player)
+        protected void DestroyWall(GameObject player)
         {
             normalWall.SetActive(false);
             GameObject wallPieces = Instantiate(brokenWall, normalWall.transform.position,Quaternion.identity);
@@ -68,7 +69,7 @@ namespace Platforms
                     childRigidbody.AddExplosionForce(wallExplosionPower,player.transform.position,7f );
                 }
             }
-            Destroy(wallPieces, 1.5f);
+            Destroy(wallPieces, 2f);
         }
         
         
