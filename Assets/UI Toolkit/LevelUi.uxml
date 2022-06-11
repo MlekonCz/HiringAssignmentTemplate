@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LevelStyles.uss?fileID=7433441132597879392&amp;guid=b0b79ce2e68053f449ec45e4b8b07282&amp;type=3#LevelStyles" />
+    <ui:VisualElement name="BackGround" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:Button display-tooltip-when-elided="true" name="Pause-button" style="position: absolute; top: 50px; right: 50px; height: 104px; width: 110px; background-image: url(&apos;project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Play/play_btn_pause.png?fileID=2800000&amp;guid=1f6359cc39532464595f4eeeedb325e0&amp;type=3#play_btn_pause&apos;); background-color: rgba(188, 188, 188, 0); -unity-background-image-tint-color: rgb(0, 5, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+        <ui:VisualElement name="Won-menu" style="position: relative; height: 646px; width: 434px; background-image: url(&apos;project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Pass/pass_btn_collect.png?fileID=2800000&amp;guid=0972555577dae4776a602b0ce67c77f4&amp;type=3#pass_btn_collect&apos;); -unity-background-image-tint-color: rgb(229, 255, 0); align-items: center; display: flex; visibility: hidden;">
+            <ui:Label text="You Won!" display-tooltip-when-elided="true" name="Won-text" style="font-size: 70px; top: 10px;" />
+            <ui:Button text="Next Level" display-tooltip-when-elided="true" name="NextLevel-button" class="Button-style" />
+            <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="Quit-button-W" class="Button-style" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Lost-menu" style="height: 644px; width: 434px; background-image: url(&apos;project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Pass/pass_btn_collect.png?fileID=2800000&amp;guid=0972555577dae4776a602b0ce67c77f4&amp;type=3#pass_btn_collect&apos;); -unity-background-image-tint-color: rgb(255, 0, 0); align-items: center; justify-content: flex-start; position: absolute; display: flex; visibility: hidden;">
+            <ui:Label text="You Lost!" display-tooltip-when-elided="true" name="Lost-text" style="font-size: 70px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
+            <ui:Button text="Restart Game" display-tooltip-when-elided="true" name="Restart-button" class="Button-style" style="white-space: normal;" />
+            <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="Quit-button-L" class="Button-style" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Pause-menu" style="height: 630px; width: 440px; background-image: url(&apos;project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Pass/pass_btn_collect.png?fileID=2800000&amp;guid=0972555577dae4776a602b0ce67c77f4&amp;type=3#pass_btn_collect&apos;); align-items: center; justify-content: flex-start; position: absolute; display: flex; visibility: hidden;">
+            <ui:Label text="Game Paused" display-tooltip-when-elided="true" name="Pause-text" style="font-size: 50px; -unity-font: none; -unity-font-style: normal; top: 15px;" />
+            <ui:Button text="Continue" display-tooltip-when-elided="true" name="Continue-button" class="Button-style" style="height: 98px; width: 223px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; background-image: url(&apos;project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Common/button_blue.png?fileID=2800000&amp;guid=6bbcba4e267be464998897741b81d508&amp;type=3#button_blue&apos;); background-color: rgba(255, 255, 255, 0); font-size: 35px;" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit-button-P" class="Button-style" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

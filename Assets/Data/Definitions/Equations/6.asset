@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a46add264549f4a9ec7a36b8250d4f, type: 3}
   m_Name: 6
   m_EditorClassIdentifier: 
-  mathEquation: +5 / 3
+  mathEquation: +5

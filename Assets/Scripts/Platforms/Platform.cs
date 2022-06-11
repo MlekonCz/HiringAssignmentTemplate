@@ -72,6 +72,7 @@ namespace Platforms
         {
             if (isFinalPlatform )
             {
+                triggerArea.SetActive(false);
                 if (player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies))
                 {
                     levelFinished?.Invoke();

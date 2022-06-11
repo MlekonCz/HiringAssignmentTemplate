@@ -44,6 +44,7 @@ namespace Player
             if (currentNumber <= 0)
             {
                 playerLost?.Invoke(false);
+                return false;
             }
 
             return true;

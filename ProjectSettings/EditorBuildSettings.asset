@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FirstLevel.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/TestLv2.unity
     guid: 24a21fdc2dfa5cf4aafa3dbb396e53e3
+  - enabled: 1
+    path: Assets/Scenes/EndlessMode.unity
+    guid: 21902bf8281e0d04ab8f3af381d9775d
   m_configObjects: {}

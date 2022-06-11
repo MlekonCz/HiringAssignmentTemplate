@@ -9,17 +9,9 @@ namespace Core
 {
     public class GameManager : MonoBehaviour
     {
-        
-        [SerializeField] private GameObject winCanvas;
-        [SerializeField] private GameObject loseCanvas;
-        
-        
-        [SerializeField] private LevelDefinition levelDefinition;
 
-        private void Awake()
-        {
-            
-        }
+        [SerializeField] private LevelDefinition levelDefinition;
+        private LevelUiController _levelUiController;
 
         private void Initialize()
         {
@@ -28,14 +20,18 @@ namespace Core
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-           Debug.Log("Initialized");
-            FindObjectOfType<PlatformManager>().Initialize(levelDefinition);
-            FindObjectOfType<EquationProvider>().Initialize(levelDefinition);
-            winCanvas.SetActive(false);
-            loseCanvas.SetActive(false);
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                return;
+            } 
             
-            FindObjectOfType<PlatformManager>().levelFinished += LevelFinished;
-            FindObjectOfType<PlayerManager>().playerLost += LevelFinished;
+            Debug.Log("Initialized");
+           _levelUiController = FindObjectOfType<LevelUiController>();
+           
+           FindObjectOfType<PlatformManager>().Initialize(levelDefinition);
+           FindObjectOfType<EquationProvider>().Initialize(levelDefinition);
+           FindObjectOfType<PlatformManager>().levelFinished += LevelFinished;
+           FindObjectOfType<PlayerManager>().playerLost += LevelFinished;
         }
 
         
@@ -54,30 +50,33 @@ namespace Core
         
         private void LevelFinished(bool playerWon)
         {
-            Debug.Log("Level finished");
             if (playerWon)
             {
-                winCanvas.SetActive(true);
-                Debug.Log("You Won!!!");
+                _levelUiController.ShowWonMenu();
             }
             else
             {
-                loseCanvas.SetActive(true);
-                Debug.Log("You lost. Better luck next time.");
+               _levelUiController.ShowLostMenu();
             }
         }
 
         #region Subscriptions
         private void OnEnable()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            
             SceneManager.sceneUnloaded += OnSceneUnLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+        
         
         void OnSceneUnLoaded(Scene scene)
         {
-            FindObjectOfType<PlatformManager>().levelFinished -= LevelFinished;
-            FindObjectOfType<PlayerManager>().playerLost -= LevelFinished;
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                return;
+            } 
+            // FindObjectOfType<PlatformManager>().levelFinished -= LevelFinished;
+           // FindObjectOfType<PlayerManager>().playerLost -= LevelFinished;
         }
         private void OnDisable()
         {
