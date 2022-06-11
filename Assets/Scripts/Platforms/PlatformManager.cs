@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using Definitions;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace Platforms
@@ -16,6 +19,67 @@ namespace Platforms
         public delegate void CallBackType(bool playerWon);
         public event CallBackType levelFinished;
 
+        private IObjectPool<GameObject> _platformPool;
+
+        private void Awake()
+        {
+            _platformPool = new ObjectPool<GameObject>(CreatePlatform, OnGet, OnRelease, maxSize: 6);
+        }
+
+
+
+        private GameObject CreatePlatform()
+        {
+            float zSpawnPosition = _platformsSpawned * 40;
+            
+            GameObject platform = Instantiate(
+                levelDefinition.platformPrefabs[Random.Range(0, levelDefinition.platformPrefabs.Length)],
+                new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            // platform.GetComponent<NormalPlatform>().Initialize(_equationProvider.GetMathEquations(),
+            //     _equationProvider.GetNumberOfEnemies(levelDefinition.difficultyOfNormalEnemies));
+
+            platform.GetComponent<NormalPlatform>().platformCleared += OnRelease;
+            platform.GetComponent<NormalPlatform>().SetPool(_platformPool);
+            
+            return platform;
+        }
+        private void OnGet(GameObject platform)
+        {
+            platform.SetActive(true);
+
+            
+            float zSpawnPosition = _platformsSpawned * 40;
+            platform.transform.position = new Vector3(0, -1.5f, zSpawnPosition);
+            
+            platform.GetComponent<NormalPlatform>().Initialize(_equationProvider.GetMathEquations(),
+                _equationProvider.GetNumberOfEnemies(levelDefinition.difficultyOfNormalEnemies));
+            
+            _platformsSpawned++;
+            _currentlySpawnedPlatforms++;
+        }
+        private void OnRelease(GameObject platform)
+        {
+            StartCoroutine(DeactivatePlatform(platform));
+        }
+
+        IEnumerator DeactivatePlatform(GameObject platform)
+        {
+            yield return new WaitForSeconds(2.5f);
+            platform.SetActive(false);
+            _currentlySpawnedPlatforms--;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         private void Start()
         {
             _equationProvider = FindObjectOfType<EquationProvider>();
@@ -36,7 +100,8 @@ namespace Platforms
 
         private void SpawnPlatform()
         {
-            //if (_currentlySpawnedPlatforms >= 4){return;}
+            if (_currentlySpawnedPlatforms >= 5){return;}
+            
             if (_platformsSpawned == 0)
             {
                 InstantiateStartingPlatform();
@@ -53,28 +118,19 @@ namespace Platforms
         #region spawningPlatforms
         private void InstantiateStartingPlatform()
         {
-            Instantiate(levelDefinition.startingPlatform, new Vector3(0, -1.5f, 0), Quaternion.identity);
+            GameObject platform = Instantiate(levelDefinition.startingPlatform, new Vector3(0, -1.5f, 0), Quaternion.identity);
             _platformsSpawned++;
+            Destroy(platform, 4f);
         }
         private void InstantiatePlatform()
         {
-            float zSpawnPosition = _platformsSpawned * 40;
-
-            GameObject platform = Instantiate(
-                levelDefinition.platformPrefabs[Random.Range(0, levelDefinition.platformPrefabs.Length)],
-                new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
-
-            platform.GetComponent<Platform>().Initialize(_equationProvider.GetMathEquations(),
-                _equationProvider.GetNumberOfEnemies(levelDefinition.difficultyOfNormalEnemies));
-
-            _platformsSpawned++;
-            _currentlySpawnedPlatforms++;
+            _platformPool.Get();
         }
         private void InstantiateFinalPlatform()
         {
             float zSpawnPosition = _platformsSpawned * 40;
             GameObject platform = Instantiate(levelDefinition.finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
-            platform.GetComponent<Platform>().Initialize(_equationProvider.GetNumberOfEnemies
+            platform.GetComponent<BossPlatform>().Initialize(_equationProvider.GetNumberOfEnemies
                 (levelDefinition.difficultyOfBoss));
             _platformsSpawned++;
             SubscribeToFinalPlatform(platform);
@@ -82,7 +138,7 @@ namespace Platforms
         #endregion
         private void SubscribeToFinalPlatform(GameObject finalPlatform)
         {
-            finalPlatform.GetComponent<Platform>().levelFinished += CurrentLevelFinished;
+            finalPlatform.GetComponent<BossPlatform>().levelFinished += CurrentLevelFinished;
         }
         private void CurrentLevelFinished()
         {

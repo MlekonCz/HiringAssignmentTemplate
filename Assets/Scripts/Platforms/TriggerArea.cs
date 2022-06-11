@@ -13,7 +13,7 @@ namespace Platforms
         
             if (other.gameObject.CompareTag(TagManager.Player) && !isEnemyArea)
             {
-                platform.GetComponent<Platform>().TriggerMathGate(isLeft, other.gameObject);
+                platform.GetComponent<NormalPlatform>().TriggerMathGate(isLeft, other.gameObject);
             }
 
             if (other.gameObject.CompareTag(TagManager.Player) && isEnemyArea)

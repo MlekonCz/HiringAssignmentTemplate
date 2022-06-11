@@ -588,7 +588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8106234905510894870}
-  - component: {fileID: 4311590029484837328}
+  - component: {fileID: 5197103346074130948}
   m_Layer: 6
   m_Name: FinalPlatform
   m_TagString: Platform
@@ -613,7 +613,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4311590029484837328
+--- !u!114 &5197103346074130948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -622,11 +622,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8106234905510894871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e65dec06207e5c4db5b0052b2f0703c, type: 3}
+  m_Script: {fileID: 11500000, guid: 95d28611c51245fe9a2c826ae4d733fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
-  leftWall: {fileID: 0}
-  rightWall: {fileID: 0}
   enemyNumber: {fileID: 7882087991178552540}
-  isFinalPlatform: 1
