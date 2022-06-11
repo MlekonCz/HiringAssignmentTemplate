@@ -1,9 +1,8 @@
-using System;
+using Core;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace Core
+namespace Scenes
 {
     public class MainMenuUiController : MonoBehaviour
     {

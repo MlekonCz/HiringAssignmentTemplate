@@ -37,7 +37,6 @@ namespace Platforms
             index2 = 0;
         
             var equationDefinition = levelDefinition.equationDefinitions;
-            Debug.Log(equationDefinition[2]);
 
             while (index1 == index2)
             {
@@ -89,9 +88,7 @@ namespace Platforms
                 enemies = 1;
             }
             highestPossibleNumber -= enemies;
-        
-        
-            Debug.Log(enemies);
+            
             return enemies;
         }
     

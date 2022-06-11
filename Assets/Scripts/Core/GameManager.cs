@@ -1,6 +1,7 @@
 using Definitions;
 using Platforms;
 using Player;
+using Scenes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

@@ -1,8 +1,9 @@
 using System.Collections;
+using Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Core
+namespace Scenes
 {
     public class LevelUiController : MonoBehaviour
     {

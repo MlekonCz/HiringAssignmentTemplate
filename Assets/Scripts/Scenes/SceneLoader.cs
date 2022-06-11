@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Core
+namespace Scenes
 {
     public class SceneLoader : MonoBehaviour
     {

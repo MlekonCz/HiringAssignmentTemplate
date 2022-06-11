@@ -31,7 +31,6 @@ namespace Player
         public void ChosenMathEquation(String mathEquation)
         {
             string number = currentNumber.ToString() + mathEquation;
-            Debug.Log(mathEquation);
             double result = Convert.ToDouble(new DataTable().Compute
                 (number,null));
             
