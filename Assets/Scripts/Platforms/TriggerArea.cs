@@ -10,13 +10,13 @@ namespace Platforms
         [SerializeField] private bool isEnemyArea;
         private void OnTriggerEnter(Collider other)
         {
-        
-            if (other.gameObject.CompareTag(TagManager.Player) && !isEnemyArea)
+            if (!other.gameObject.CompareTag(TagManager.Player)){return;}
+            
+            if (!isEnemyArea)
             {
                 platform.GetComponent<NormalPlatform>().TriggerMathGate(isLeft, other.gameObject);
             }
-
-            if (other.gameObject.CompareTag(TagManager.Player) && isEnemyArea)
+            else
             {
                 platform.GetComponent<Platform>().TriggerEnemyArea(gameObject,other.gameObject);
             }

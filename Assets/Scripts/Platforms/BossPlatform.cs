@@ -14,7 +14,7 @@ namespace Platforms
         public override void TriggerEnemyArea(GameObject triggerArea, GameObject player)
         {
             triggerArea.SetActive(false);
-            if (player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies))
+            if (player.GetComponent<PlayerManager>().FacedEnemies(enemies))
             {
                 levelFinished?.Invoke();
             }

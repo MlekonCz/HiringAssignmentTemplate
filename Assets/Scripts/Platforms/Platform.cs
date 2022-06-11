@@ -1,17 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Definitions;
 using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
 namespace Platforms
 {
     public abstract class Platform : MonoBehaviour
     {
-        
-        [SerializeField] private TMP_Text enemyNumber;
-        
+        [SerializeField] protected GameObject normalWall;
+        [SerializeField] private GameObject brokenWall;
+        [SerializeField] private TMP_Text wallNumber;
+
+        [SerializeField] private float wallExplosionPower = 150f;
+
         private IObjectPool<GameObject> _platformPool;
         protected int enemies;
         
@@ -33,7 +38,7 @@ namespace Platforms
         
         private void AssignEnemyNumber()
         {
-            enemyNumber.text = enemies.ToString();
+            wallNumber.text = enemies.ToString();
         }
         public void SetPool(IObjectPool<GameObject> pool)
         {
@@ -43,10 +48,28 @@ namespace Platforms
         public virtual void TriggerEnemyArea(GameObject triggerArea, GameObject player)
         {
             triggerArea.SetActive(false);
-            player.GetComponentInParent<PlayerManager>().FacedEnemies(enemies);
-            platformCleared?.Invoke(gameObject);
+            if ( player.GetComponent<PlayerManager>().FacedEnemies(enemies))
+            { 
+                platformCleared?.Invoke(gameObject); 
+                DestroyWall(player);
+            }
+            
+            
         }
-        
+
+        private void DestroyWall(GameObject player)
+        {
+            normalWall.SetActive(false);
+            GameObject wallPieces = Instantiate(brokenWall, normalWall.transform.position,Quaternion.identity);
+            foreach (Transform child in wallPieces.transform)
+            {
+                if (child.TryGetComponent<Rigidbody>(out Rigidbody childRigidbody))
+                {
+                    childRigidbody.AddExplosionForce(wallExplosionPower,player.transform.position,7f );
+                }
+            }
+            Destroy(wallPieces, 1.5f);
+        }
         
         
         

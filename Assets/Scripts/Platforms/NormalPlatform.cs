@@ -20,6 +20,11 @@ namespace Platforms
         private EquationProvider _equationProvider;
 
 
+        private void OnEnable()
+        {
+            normalWall.SetActive(true);
+        }
+
         public override void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
         {
             base.Initialize(equationDefinitions, numberOfEnemies);
@@ -43,11 +48,11 @@ namespace Platforms
             canvas.SetActive(false);
             if (isLeft)
             {
-                player.GetComponentInParent<PlayerManager>().ChosenMathEquation(equations[0].mathEquation);
+                player.GetComponent<PlayerManager>().ChosenMathEquation(equations[0].mathEquation);
             }
             else
             {
-                player.GetComponentInParent<PlayerManager>().ChosenMathEquation(equations[1].mathEquation);
+                player.GetComponent<PlayerManager>().ChosenMathEquation(equations[1].mathEquation);
             }
         }
     }

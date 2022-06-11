@@ -7,6 +7,8 @@ namespace Player
 {
     public class PlayerManager : MonoBehaviour
     {
+        private AnimatorHandler _animatorHandler;
+        
         [SerializeField] private TMP_Text playerNumber_UI;
         [SerializeField] private float startingNumber = 1f;
         public float currentNumber;
@@ -21,7 +23,11 @@ namespace Player
             UpdateUiNumber();
         }
 
-       
+        private void Start()
+        {
+            _animatorHandler = GetComponentInChildren<AnimatorHandler>();
+        }
+
         public void ChosenMathEquation(String mathEquation)
         {
             string number = currentNumber.ToString() + mathEquation;
@@ -38,6 +44,7 @@ namespace Player
 
         public bool FacedEnemies(int numberOfEnemies)
         {
+            _animatorHandler.PlayTargetAnimation("WallHit");
             currentNumber -= numberOfEnemies;
             UpdateUiNumber();
 

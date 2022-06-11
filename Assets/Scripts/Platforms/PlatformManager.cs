@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Definitions;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
@@ -9,6 +10,13 @@ namespace Platforms
 {
     public class PlatformManager : MonoBehaviour
     {
+        [SerializeField] private bool editPlatformsTransform = false;
+        
+        [ShowIf("editPlatformsTransform", true)]
+        [SerializeField] private float platformsPositionY = -0.5f;
+        [ShowIf("editPlatformsTransform", true)]
+        [SerializeField] private float distanceBetweenPlatforms = 40f;
+        
         private LevelDefinition levelDefinition;
         private EquationProvider _equationProvider;
 
@@ -30,7 +38,7 @@ namespace Platforms
 
         private GameObject CreatePlatform()
         {
-            float zSpawnPosition = _platformsSpawned * 40;
+            float zSpawnPosition = _platformsSpawned * distanceBetweenPlatforms;
             
             GameObject platform = Instantiate(
                 levelDefinition.platformPrefabs[Random.Range(0, levelDefinition.platformPrefabs.Length)],
@@ -48,8 +56,8 @@ namespace Platforms
             platform.SetActive(true);
 
             
-            float zSpawnPosition = _platformsSpawned * 40;
-            platform.transform.position = new Vector3(0, -1.5f, zSpawnPosition);
+            float zSpawnPosition = _platformsSpawned * distanceBetweenPlatforms;
+            platform.transform.position = new Vector3(0, platformsPositionY, zSpawnPosition);
             
             platform.GetComponent<NormalPlatform>().Initialize(_equationProvider.GetMathEquations(),
                 _equationProvider.GetNumberOfEnemies(levelDefinition.difficultyOfNormalEnemies));
@@ -118,7 +126,7 @@ namespace Platforms
         #region spawningPlatforms
         private void InstantiateStartingPlatform()
         {
-            GameObject platform = Instantiate(levelDefinition.startingPlatform, new Vector3(0, -1.5f, 0), Quaternion.identity);
+            GameObject platform = Instantiate(levelDefinition.startingPlatform, new Vector3(0, platformsPositionY, 0), Quaternion.identity);
             _platformsSpawned++;
             Destroy(platform, 4f);
         }
@@ -128,8 +136,8 @@ namespace Platforms
         }
         private void InstantiateFinalPlatform()
         {
-            float zSpawnPosition = _platformsSpawned * 40;
-            GameObject platform = Instantiate(levelDefinition.finalPlatform, new Vector3(0, -1.5f, zSpawnPosition), Quaternion.identity);
+            float zSpawnPosition = _platformsSpawned * distanceBetweenPlatforms;
+            GameObject platform = Instantiate(levelDefinition.finalPlatform, new Vector3(0, platformsPositionY, zSpawnPosition), Quaternion.identity);
             platform.GetComponent<BossPlatform>().Initialize(_equationProvider.GetNumberOfEnemies
                 (levelDefinition.difficultyOfBoss));
             _platformsSpawned++;
