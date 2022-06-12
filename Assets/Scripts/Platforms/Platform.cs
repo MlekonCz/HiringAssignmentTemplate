@@ -14,8 +14,10 @@ namespace Platforms
         [SerializeField] protected GameObject normalWall;
         [SerializeField] private GameObject brokenWall;
         [SerializeField] private TMP_Text wallNumber;
+        [SerializeField] private GameObject explosionParticle;
 
-        [SerializeField] private float wallExplosionPower = 150f;
+        [SerializeField] private float wallExplosionPower = 200f;
+        
 
         private IObjectPool<GameObject> _platformPool;
         protected int enemies;
@@ -49,7 +51,7 @@ namespace Platforms
         {
             
             if ( player.GetComponent<PlayerManager>().FacedEnemies(enemies))
-            { 
+            {
                 triggerArea.SetActive(false);
                 platformCleared?.Invoke(gameObject); 
                 DestroyWall(player);
@@ -60,6 +62,7 @@ namespace Platforms
 
         protected void DestroyWall(GameObject player)
         {
+            Instantiate(explosionParticle, player.transform.position, Quaternion.identity);
             normalWall.SetActive(false);
             GameObject wallPieces = Instantiate(brokenWall, normalWall.transform.position,Quaternion.identity);
             foreach (Transform child in wallPieces.transform)

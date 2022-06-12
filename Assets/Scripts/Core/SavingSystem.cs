@@ -11,7 +11,7 @@ namespace Core
         private string SavePath => $"{Application.persistentDataPath}/save.txt";
 
         [Button]
-        private void Save()
+        public  void Save()
         {
             var state = LoadFile();
             CaptureState(state);
@@ -19,7 +19,7 @@ namespace Core
         }
 
         [Button]
-        private void Load()
+        public void Load()
         {
             var state = LoadFile();
             RestoreState(state);
@@ -31,21 +31,20 @@ namespace Core
             {
                 return new Dictionary<string, object>();
             }
-
-            using (FileStream stream = File.Open(SavePath, FileMode.Open))
+            else
             {
+                using FileStream stream = File.Open(SavePath, FileMode.Open);
                 var formatter = new BinaryFormatter();
                 return (Dictionary<string, object>) formatter.Deserialize(stream);
             }
+           
         }
 
         private void SaveFile(object state)
         {
-            using (var stream = File.Open(SavePath, FileMode.Create))
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, state);
-            }
+            using var stream = File.Open(SavePath, FileMode.Create);
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(stream, state);
         }
 
         private void CaptureState(Dictionary<string, object> state)

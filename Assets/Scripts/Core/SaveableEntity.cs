@@ -31,7 +31,7 @@ namespace Core
 
             foreach (var saveable in GetComponents<ISaveable>())
             {
-                string typeName = saveable.GetType().ToString();
+                var typeName = saveable.GetType().ToString();
 
                 if (stateDictionary.TryGetValue(typeName, out object value))
                 {

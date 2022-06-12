@@ -1007,7 +1007,9 @@ MonoBehaviour:
   brokenWall: {fileID: 8816328790272494606, guid: e4408952c83adf4418eba8826b5024c9,
     type: 3}
   wallNumber: {fileID: 2850061055632251769}
-  wallExplosionPower: 150
+  explosionParticle: {fileID: 2210496440076333372, guid: 6a975de9d7b5abb41a7e24f1de63a80f,
+    type: 3}
+  wallExplosionPower: 400
   canvas: {fileID: 1044706641454555143}
   leftWall: {fileID: 6754738499358249506}
   rightWall: {fileID: 4382835657795756940}

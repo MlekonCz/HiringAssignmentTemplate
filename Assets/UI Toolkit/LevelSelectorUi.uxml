@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LevelSelectStyle.uss?fileID=7433441132597879392&amp;guid=02c4f67cf1d6c834e90c384a98399177&amp;type=3#LevelSelectStyle" />
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="BackGround" style="height: 876px; width: 1596px; background-color: rgba(255, 255, 255, 0); background-image: url(&apos;project://database/Assets/Packs/GUI%20Kit%20Casual%20Game/ResourcesData/Sprite/Equipment_Inventory/equipment_frame_green.png?fileID=2800000&amp;guid=e6eea4f7cbb9f46f79c0fe06180fa5b3&amp;type=3#equipment_frame_green&apos;); position: relative;">
+            <ui:Button text="Level 1" display-tooltip-when-elided="true" name="Level1-button" class="button-style" />
+            <ui:Button text="Level 2" display-tooltip-when-elided="true" name="Level2-button" class="button-style" style="position: absolute; left: 300px;" />
+            <ui:Button text="Level 3" display-tooltip-when-elided="true" name="Level3-button" class="button-style" style="left: 450px; position: absolute; top: 100px;" />
+            <ui:Button text="Level 4" display-tooltip-when-elided="true" name="Level4-button" class="button-style" style="position: absolute; left: 600px;" />
+            <ui:Button text="Level 5" display-tooltip-when-elided="true" name="Level5-button" class="button-style" style="position: absolute; left: 750px;" />
+            <ui:Button text="Level 6" display-tooltip-when-elided="true" name="Level6-button" class="button-style" style="position: absolute; left: 900px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

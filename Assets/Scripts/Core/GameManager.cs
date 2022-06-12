@@ -1,30 +1,52 @@
+using System;
 using Definitions;
 using Platforms;
 using Player;
 using Scenes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Core
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, ISaveable
     {
 
-        [SerializeField] private LevelDefinition levelDefinition;
+        [InfoBox("Endless mode level must be last in array")]
+        [SerializeField] private LevelDefinition[] levelDefinition;
+        
+        
         private LevelUiController _levelUiController;
+        private SavingSystem _savingSystem;
+        
+        
+
+        [SerializeField] private int accessibleLevel = 1;
+
+        private int _currentScene;
+
+        private void Awake()
+        {
+            _savingSystem = FindObjectOfType<SavingSystem>();
+        }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                return;
-            } 
+            _currentScene = SceneManager.GetActiveScene().buildIndex;
             
+            Debug.Log(_currentScene);
+            if (_currentScene == 0)
+            {
+                _savingSystem.Load();
+                FindObjectOfType<MainMenuUiController>().SetAccessibleLevel(accessibleLevel);
+                return;
+            }
             Debug.Log("Initialized");
            _levelUiController = FindObjectOfType<LevelUiController>();
            
-           FindObjectOfType<PlatformManager>().Initialize(levelDefinition);
-           FindObjectOfType<EquationProvider>().Initialize(levelDefinition);
+           FindObjectOfType<PlayerMover>().SetPlayerSpeed(levelDefinition[_currentScene -1].playerSpeed);
+           FindObjectOfType<PlatformManager>().Initialize(levelDefinition[_currentScene - 1]);
+           FindObjectOfType<EquationProvider>().Initialize(levelDefinition[_currentScene - 1]);
            FindObjectOfType<PlatformManager>().levelFinished += LevelFinished;
            FindObjectOfType<PlayerManager>().playerLost += LevelFinished;
         }
@@ -32,6 +54,8 @@ namespace Core
         {
             if (playerWon)
             {
+                accessibleLevel++;
+                _savingSystem.Save();
                 _levelUiController.ShowWonMenu();
             }
             else
@@ -39,7 +63,6 @@ namespace Core
                _levelUiController.ShowLostMenu();
             }
         }
-
         #region Subscriptions
         private void OnEnable()
         {
@@ -62,5 +85,26 @@ namespace Core
         }
         #endregion
         
+        public object CaptureState()
+        {
+            return new SaveData
+            {
+                accessibleLevel = accessibleLevel,
+            };
+        }
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData) state;
+            accessibleLevel = saveData.accessibleLevel;
+        }
+        
+        
+        [Serializable]
+        private struct SaveData
+        {
+            public int accessibleLevel;
+        }
+
+       
     }
 }

@@ -12,6 +12,9 @@ namespace Scenes
 
         private SceneLoader _sceneLoader;
 
+        private int _accessibleLevel;
+        public void SetAccessibleLevel(int level){_accessibleLevel = level;}
+        
 
         private void Awake()
         {
@@ -25,7 +28,7 @@ namespace Scenes
 
         private void StartButtonPressed()
         {
-            _sceneLoader.LoadNextScene();
+            _sceneLoader.LoadScene(_accessibleLevel);
         }
 
         private void EndlessButtonPressed()

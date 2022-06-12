@@ -10,15 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 426be4968dad40d79effbd84b8b7e37e, type: 3}
-  m_Name: Level1
+  m_Name: EndlessLevel
   m_EditorClassIdentifier: 
   equationDefinitions:
   - {fileID: 11400000, guid: 70ef373bf97837a4da9f42dced53b4d0, type: 2}
-  - {fileID: 11400000, guid: 13c239e52b03de84da1a651db6fe01b6, type: 2}
-  - {fileID: 11400000, guid: bfcd0b4394835be4ab7434ad421c76c5, type: 2}
-  - {fileID: 11400000, guid: 68037e16becf21642b09b831f751c1e7, type: 2}
-  - {fileID: 11400000, guid: 9cddce99d68e3564d9b9e67e4b1ebe1b, type: 2}
-  - {fileID: 11400000, guid: a2e68c652342b7943a389b73c78bfc29, type: 2}
   - {fileID: 11400000, guid: 2e8edc13a1b40c944a83c4c84a5382a6, type: 2}
   platformPrefabs:
   - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
@@ -26,8 +21,8 @@ MonoBehaviour:
     type: 3}
   startingPlatform: {fileID: 8106234905510894871, guid: a4edf8eeda3b0af4f87fea8e312a1a81,
     type: 3}
-  isEndlessMode: 0
+  isEndlessMode: 1
   platformsToSpawn: 10
-  difficultyOfNormalEnemies: 0.4
+  difficultyOfNormalEnemies: 0.5
   difficultyOfBoss: 0.9
   playerSpeed: 10

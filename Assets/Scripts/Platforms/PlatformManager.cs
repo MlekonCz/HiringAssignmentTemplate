@@ -29,9 +29,13 @@ namespace Platforms
 
         private IObjectPool<GameObject> _platformPool;
 
-        private void Awake()
+        private void Start()
         {
             _platformPool = new ObjectPool<GameObject>(CreatePlatform, OnGet, OnRelease, maxSize: 6);
+            _equationProvider = FindObjectOfType<EquationProvider>();
+            _currentlySpawnedPlatforms = GameObject.FindGameObjectsWithTag(TagManager.Platform).Length;
+            _platformsSpawned = _currentlySpawnedPlatforms;
+            _platformsToSpawn = levelDefinition.platformsToSpawn;
         }
         private GameObject CreatePlatform()
         {
@@ -66,17 +70,11 @@ namespace Platforms
 
         IEnumerator DeactivatePlatform(GameObject platform)
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(3.5f);
             platform.SetActive(false);
             _currentlySpawnedPlatforms--;
         }
-        private void Start()
-        {
-            _equationProvider = FindObjectOfType<EquationProvider>();
-            _currentlySpawnedPlatforms = GameObject.FindGameObjectsWithTag(TagManager.Platform).Length;
-            _platformsSpawned = _currentlySpawnedPlatforms;
-            _platformsToSpawn = levelDefinition.platformsToSpawn;
-        }
+       
 
         public void Initialize(LevelDefinition currentLevel)
         {
@@ -96,11 +94,11 @@ namespace Platforms
             {
                 InstantiateStartingPlatform();
             }
-            else if (_platformsSpawned < _platformsToSpawn)
+            else if (_platformsSpawned < _platformsToSpawn || levelDefinition.isEndlessMode)
             {
                 InstantiatePlatform();
             }
-            else if (_platformsSpawned == _platformsToSpawn)
+            else if (_platformsSpawned == _platformsToSpawn && !levelDefinition.isEndlessMode)
             {
                 InstantiateFinalPlatform();
             }
