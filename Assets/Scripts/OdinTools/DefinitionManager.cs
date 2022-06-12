@@ -30,13 +30,15 @@ using UnityEngine;
         // 2. Declare definition that you want to display in Tab
         // If you will want more folders in one Tab like in Weapons have Melee and Ranged 
         // You have to declare it here for each new folder that will be in Tab to be able to select path for it
-        private readonly DrawSelected<EquationDefinition> _drawEquations = new DrawSelected<EquationDefinition>();
+        private readonly DrawSelected<EquationDefinition> _drawEasyEquations = new DrawSelected<EquationDefinition>();
+        private readonly DrawSelected<EquationDefinition> _drawMediumEquations = new DrawSelected<EquationDefinition>();
         private readonly DrawSelected<LevelDefinition> _drawLevels = new DrawSelected<LevelDefinition>();
 
         
         // 3. Declare path for each folder you will want to be displayed in which are SO 
         
-        private const string equationDefinitionPath = "Assets/Data/Definitions/Equations";
+        private const string easyEquationDefinitionPath = "Assets/Data/Definitions/Equations/Easy";
+        private const string mediumEquationDefinitionPath = "Assets/Data/Definitions/Equations/Medium";
         private const string levelDefinitionPath = "Assets/Data/Definitions/Levels";
         
         
@@ -55,7 +57,8 @@ using UnityEngine;
         // 4. Setting path to definition
         protected override void Initialize()
         {
-            _drawEquations.SetPath(equationDefinitionPath);
+            _drawEasyEquations.SetPath(easyEquationDefinitionPath);
+            _drawEasyEquations.SetPath(mediumEquationDefinitionPath);
             _drawLevels.SetPath(levelDefinitionPath);
         }
 
@@ -90,7 +93,7 @@ using UnityEngine;
             {
                 // 6. For each Tab you will have you need to add case so system will be able to update when selected new Tab
                 case ManagerState.Equations:
-                    _drawEquations.SetSelected(MenuTree.Selection.SelectedValue);
+                    _drawEasyEquations.SetSelected(MenuTree.Selection.SelectedValue);
                     break;
                 case ManagerState.Levels:
                     _drawLevels.SetSelected(MenuTree.Selection.SelectedValue);
@@ -108,7 +111,7 @@ using UnityEngine;
             // THEY HAS TO BE IN SAME ORDERS AS ENUMS THAT ARE ON TOP!
             // in case you are not using some enum Then you just write: targets.Add(null);
             List<object> targets = new List<object>();
-            targets.Add(_drawEquations);
+            targets.Add(_drawEasyEquations);
             targets.Add(_drawLevels);
             targets.Add(base.GetTarget());
 
@@ -141,7 +144,9 @@ using UnityEngine;
                 //      typeof(...)
                 // for each folder under case which you want to add it to
                 case ManagerState.Equations:
-                    tree.AddAllAssetsAtPath("Equation Definition", equationDefinitionPath, 
+                    tree.AddAllAssetsAtPath("Easy Equation Definitions", easyEquationDefinitionPath, 
+                        typeof(EquationDefinition));
+                    tree.AddAllAssetsAtPath("Medium Equation Definitions", mediumEquationDefinitionPath, 
                         typeof(EquationDefinition));
                     break;
                 case ManagerState.Levels:

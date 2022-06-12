@@ -11,7 +11,6 @@ namespace Scenes
         private VisualElement _lostMenu;
 
         private Button _pauseButton;
-
         private Button _continueButton;
         private Button _nextLevelButton;
         private Button _restartButton;
@@ -21,14 +20,14 @@ namespace Scenes
         private Button _mainMenuButton_L;
 
 
-        private VisualElement root;
+        private VisualElement _root;
 
         private SceneLoader _sceneLoader;
         
         private void Awake()
         {
             _sceneLoader = FindObjectOfType<SceneLoader>();
-            root = GetComponent<UIDocument>().rootVisualElement;
+            _root = GetComponent<UIDocument>().rootVisualElement;
             AssignUiElements();
         }
 
@@ -41,19 +40,19 @@ namespace Scenes
 
         private void AssignUiElements()
         {
-            _wonMenu = root.Q<VisualElement>("Won-menu");
-            _lostMenu = root.Q<VisualElement>("Lost-menu");
-            _pauseMenu = root.Q<VisualElement>("Pause-menu");
+            _wonMenu = _root.Q<VisualElement>("Won-menu");
+            _lostMenu = _root.Q<VisualElement>("Lost-menu");
+            _pauseMenu = _root.Q<VisualElement>("Pause-menu");
 
-            _pauseButton = root.Q<Button>("Pause-button");
+            _pauseButton = _root.Q<Button>("Pause-button");
             
-            _continueButton = root.Q<Button>("Continue-button");
-            _nextLevelButton = root.Q<Button>("NextLevel-button");
-            _restartButton = root.Q<Button>("Restart-button");
+            _continueButton = _root.Q<Button>("Continue-button");
+            _nextLevelButton = _root.Q<Button>("NextLevel-button");
+            _restartButton = _root.Q<Button>("Restart-button");
             
-            _mainMenuButton_P = root.Q<Button>("Quit-button-P");
-            _mainMenuButton_W = root.Q<Button>("Quit-button-W");
-            _mainMenuButton_L = root.Q<Button>("Quit-button-L");
+            _mainMenuButton_P = _root.Q<Button>("Quit-button-P");
+            _mainMenuButton_W = _root.Q<Button>("Quit-button-W");
+            _mainMenuButton_L = _root.Q<Button>("Quit-button-L");
             
         }
 

@@ -6,24 +6,23 @@ namespace Scenes
 {
     public class MainMenuUiController : MonoBehaviour
     {
-        private Button startButton;
-        private Button endlessModeButton;
-        private Button quitButton;
+        private Button _startButton;
+        private Button _endlessModeButton;
+        private Button _quitButton;
 
         private SceneLoader _sceneLoader;
 
         private int _accessibleLevel;
         public void SetAccessibleLevel(int level){_accessibleLevel = level;}
         
-
         private void Awake()
         {
             _sceneLoader = FindObjectOfType<SceneLoader>();
             var root = GetComponent<UIDocument>().rootVisualElement;
 
-            startButton = root.Q<Button>("Start-button");
-            endlessModeButton = root.Q<Button>("Endless-button");
-            quitButton = root.Q<Button>("Quit-button");
+            _startButton = root.Q<Button>("Start-button");
+            _endlessModeButton = root.Q<Button>("Endless-button");
+            _quitButton = root.Q<Button>("Quit-button");
         }
 
         private void StartButtonPressed()
@@ -40,21 +39,17 @@ namespace Scenes
         {
             _sceneLoader.QuitGame();
         }
-
-
-        
-        
         private void OnEnable()
         {
-            startButton.clicked += StartButtonPressed;
-            endlessModeButton.clicked += EndlessButtonPressed;
-            quitButton.clicked += QuitButtonPressed;
+            _startButton.clicked += StartButtonPressed;
+            _endlessModeButton.clicked += EndlessButtonPressed;
+            _quitButton.clicked += QuitButtonPressed;
         }
         private void OnDisable()
         {
-            startButton.clicked -= StartButtonPressed;
-            endlessModeButton.clicked -= EndlessButtonPressed;
-            quitButton.clicked -= QuitButtonPressed;
+            _startButton.clicked -= StartButtonPressed;
+            _endlessModeButton.clicked -= EndlessButtonPressed;
+            _quitButton.clicked -= QuitButtonPressed;
         }
     }
 }

@@ -15,6 +15,19 @@ MonoBehaviour:
   equationDefinitions:
   - {fileID: 11400000, guid: 70ef373bf97837a4da9f42dced53b4d0, type: 2}
   - {fileID: 11400000, guid: 2e8edc13a1b40c944a83c4c84a5382a6, type: 2}
+  - {fileID: 11400000, guid: 70f661a7caf204e4c8d46d1c50ff7fae, type: 2}
+  - {fileID: 11400000, guid: f1f9137f4558ce641a0b6069fa00c397, type: 2}
+  - {fileID: 11400000, guid: c1ab458ed26233146ad329afc539b7bb, type: 2}
+  - {fileID: 11400000, guid: c9708c73df8af654f94c272717f866cc, type: 2}
+  - {fileID: 11400000, guid: 4f04e2f15652e564fa3726da82978b47, type: 2}
+  - {fileID: 11400000, guid: 81147f0d51f653b4d928f244c52647c6, type: 2}
+  - {fileID: 11400000, guid: 052d5f63d0425c94d9f2b981cc1e4015, type: 2}
+  - {fileID: 11400000, guid: 4a93e02fbf544364280e4cedda1eee47, type: 2}
+  - {fileID: 11400000, guid: 642c6ace85f2ed544a435ebcf31540ac, type: 2}
+  - {fileID: 11400000, guid: 90fd9f5bcf0e46d4f914c9f60ebb8166, type: 2}
+  - {fileID: 11400000, guid: a2e68c652342b7943a389b73c78bfc29, type: 2}
+  - {fileID: 11400000, guid: bfcd0b4394835be4ab7434ad421c76c5, type: 2}
+  - {fileID: 0}
   platformPrefabs:
   - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
   finalPlatform: {fileID: 8106234905510894871, guid: 15c7e366e14659b4c9454c7ad15fd23c,

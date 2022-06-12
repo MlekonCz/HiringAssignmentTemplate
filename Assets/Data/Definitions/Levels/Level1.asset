@@ -27,7 +27,7 @@ MonoBehaviour:
   startingPlatform: {fileID: 8106234905510894871, guid: a4edf8eeda3b0af4f87fea8e312a1a81,
     type: 3}
   isEndlessMode: 0
-  platformsToSpawn: 10
-  difficultyOfNormalEnemies: 0.4
-  difficultyOfBoss: 0.9
+  platformsToSpawn: 7
+  difficultyOfNormalEnemies: 0.3
+  difficultyOfBoss: 0.7
   playerSpeed: 10

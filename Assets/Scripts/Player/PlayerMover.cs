@@ -10,17 +10,15 @@ namespace Player
         private Vector3 _lastPosition;
         private Camera _camera;
 
-        [SerializeField] private float playerSpeed = 5f;
-        public void SetPlayerSpeed(float speed){ playerSpeed = speed;}
+        private float _playerSpeed = 5f;
+        public void SetPlayerSpeed(float speed){ _playerSpeed = speed;}
         
-        
-        private bool isAlive = true;
+        private bool _isAlive = true;
 
         private void Awake()
         {
             _camera = Camera.main;
         }
-
         private void FixedUpdate()
         {
             MovePlayerToMousePosition();
@@ -28,24 +26,24 @@ namespace Player
 
         private void MovePlayerToMousePosition()
         {
-            if (!isAlive){return;}
+            if (!_isAlive){return;}
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit,float .MaxValue,layerMask))
             {
-                _targetPosition = new Vector3(raycastHit.point.x,0,transform.position.z + playerSpeed * Time.deltaTime);
+                _targetPosition = new Vector3(raycastHit.point.x,0,transform.position.z + _playerSpeed * Time.deltaTime);
                 _lastPosition.x = raycastHit.point.x;
                 transform.position = _targetPosition;
             }
             else
             {
-                _lastPosition.z = transform.position.z + playerSpeed * Time.deltaTime ;
+                _lastPosition.z = transform.position.z + _playerSpeed * Time.deltaTime ;
                 transform.position = _lastPosition;
             }
         }
 
         public void StopPlayer()
         {
-            isAlive = false;
+            _isAlive = false;
         }
 
 

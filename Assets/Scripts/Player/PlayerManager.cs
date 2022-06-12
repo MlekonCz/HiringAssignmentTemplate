@@ -17,15 +17,12 @@ namespace Player
         public event CallBackType playerLost;
 
 
-        private void Awake()
-        {
-            currentNumber = startingNumber;
-            UpdateUiNumber();
-        }
 
         private void Start()
         {
             _animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            currentNumber = startingNumber;
+            UpdateUiNumber();
         }
 
         public void ChosenMathEquation(String mathEquation)

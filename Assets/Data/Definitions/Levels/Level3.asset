@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 426be4968dad40d79effbd84b8b7e37e, type: 3}
-  m_Name: Level2
+  m_Name: Level3
   m_EditorClassIdentifier: 
   equationDefinitions:
   - {fileID: 11400000, guid: 70ef373bf97837a4da9f42dced53b4d0, type: 2}
@@ -26,6 +26,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 642c6ace85f2ed544a435ebcf31540ac, type: 2}
   - {fileID: 11400000, guid: 4a93e02fbf544364280e4cedda1eee47, type: 2}
   - {fileID: 11400000, guid: 052d5f63d0425c94d9f2b981cc1e4015, type: 2}
+  - {fileID: 11400000, guid: 81147f0d51f653b4d928f244c52647c6, type: 2}
+  - {fileID: 11400000, guid: 4f04e2f15652e564fa3726da82978b47, type: 2}
+  - {fileID: 11400000, guid: c9708c73df8af654f94c272717f866cc, type: 2}
+  - {fileID: 11400000, guid: f1f9137f4558ce641a0b6069fa00c397, type: 2}
+  - {fileID: 11400000, guid: 70f661a7caf204e4c8d46d1c50ff7fae, type: 2}
   platformPrefabs:
   - {fileID: 8106234905510894871, guid: 402e45c1047404f4b87b1b03bcecd7d6, type: 3}
   finalPlatform: {fileID: 8106234905510894871, guid: 15c7e366e14659b4c9454c7ad15fd23c,
@@ -33,7 +38,7 @@ MonoBehaviour:
   startingPlatform: {fileID: 8106234905510894871, guid: a4edf8eeda3b0af4f87fea8e312a1a81,
     type: 3}
   isEndlessMode: 0
-  platformsToSpawn: 10
-  difficultyOfNormalEnemies: 0.4
-  difficultyOfBoss: 0.8
-  playerSpeed: 13
+  platformsToSpawn: 15
+  difficultyOfNormalEnemies: 0.5
+  difficultyOfBoss: 0.9
+  playerSpeed: 15
