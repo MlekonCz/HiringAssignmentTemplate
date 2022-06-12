@@ -27,6 +27,7 @@ namespace Definitions
         [BoxGroup("Difficulty")]
         [Range(0.5f, 1f)] [SerializeField] public float difficultyOfBoss;
 
+        [BoxGroup("Player")]
         [SerializeField] public float playerSpeed;
     }
 }

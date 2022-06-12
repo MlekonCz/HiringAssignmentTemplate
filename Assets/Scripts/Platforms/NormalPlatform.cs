@@ -16,8 +16,11 @@ namespace Platforms
         [SerializeField] private TMP_Text rightWall;
         
 
-        private List<EquationDefinition> equations = new List<EquationDefinition>();
+        private List<EquationDefinition> _equations = new List<EquationDefinition>();
         private EquationProvider _equationProvider;
+        
+        public delegate void CallBackType(GameObject platform);
+        public event CallBackType platformCleared;
 
 
         private void OnEnable()
@@ -29,17 +32,28 @@ namespace Platforms
         {
             base.Initialize(equationDefinitions, numberOfEnemies);
             
-            equations.Clear();
+            _equations.Clear();
             foreach (var equation in equationDefinitions)
             {
-                equations.Add(equation);
+                _equations.Add(equation);
             }
             AssignEquations();
         }
+
+        public override void TriggerEnemyArea(GameObject triggerArea, GameObject player)
+        {
+            if ( player.GetComponent<PlayerManager>().FacedEnemies(enemies))
+            {
+                triggerArea.SetActive(false);
+                platformCleared?.Invoke(gameObject); 
+                DestroyWall(player);
+            }
+        }
+
         private void AssignEquations()
         {
-            leftWall.text ="x "  + equations[0].mathEquation; 
-            rightWall.text ="x "  + equations[1].mathEquation;
+            leftWall.text ="x "  + _equations[0].mathEquation; 
+            rightWall.text ="x "  + _equations[1].mathEquation;
         }
 
         
@@ -48,11 +62,11 @@ namespace Platforms
             canvas.SetActive(false);
             if (isLeft)
             {
-                player.GetComponent<PlayerManager>().ChosenMathEquation(equations[0].mathEquation);
+                player.GetComponent<PlayerManager>().ChosenMathEquation(_equations[0].mathEquation);
             }
             else
             {
-                player.GetComponent<PlayerManager>().ChosenMathEquation(equations[1].mathEquation);
+                player.GetComponent<PlayerManager>().ChosenMathEquation(_equations[1].mathEquation);
             }
         }
     }

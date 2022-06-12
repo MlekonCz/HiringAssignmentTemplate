@@ -12,7 +12,7 @@ namespace Player
          distanceBetweenPlayer = transform.position.z - _player.transform.position.z;
       }
 
-      private void Update()
+      private void LateUpdate()
       {
          transform.position =new Vector3(transform.position.x,transform.position.y,
             _player.transform.position.z + distanceBetweenPlayer);

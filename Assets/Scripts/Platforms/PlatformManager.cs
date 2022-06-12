@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Definitions;
 using Sirenix.OdinInspector;
@@ -37,6 +36,12 @@ namespace Platforms
             _platformsSpawned = _currentlySpawnedPlatforms;
             _platformsToSpawn = levelDefinition.platformsToSpawn;
         }
+        public void Initialize(LevelDefinition currentLevel)
+        {
+            levelDefinition = currentLevel;
+        }
+
+        #region PlatformPool
         private GameObject CreatePlatform()
         {
             float zSpawnPosition = _platformsSpawned * distanceBetweenPlatforms;
@@ -74,12 +79,9 @@ namespace Platforms
             platform.SetActive(false);
             _currentlySpawnedPlatforms--;
         }
-       
-
-        public void Initialize(LevelDefinition currentLevel)
-        {
-            levelDefinition = currentLevel;
-        }
+        #endregion
+        
+        
 
         private void Update()
         {
@@ -96,7 +98,7 @@ namespace Platforms
             }
             else if (_platformsSpawned < _platformsToSpawn || levelDefinition.isEndlessMode)
             {
-                InstantiatePlatform();
+                _platformPool.Get();
             }
             else if (_platformsSpawned == _platformsToSpawn && !levelDefinition.isEndlessMode)
             {
@@ -109,10 +111,6 @@ namespace Platforms
             GameObject platform = Instantiate(levelDefinition.startingPlatform, new Vector3(0, platformsPositionY, 0), Quaternion.identity);
             _platformsSpawned++;
             Destroy(platform, 4f);
-        }
-        private void InstantiatePlatform()
-        {
-            _platformPool.Get();
         }
         private void InstantiateFinalPlatform()
         {

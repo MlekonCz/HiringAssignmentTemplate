@@ -17,7 +17,6 @@ namespace Core
             CaptureState(state);
             SaveFile(state);
         }
-
         [Button]
         public void Load()
         {

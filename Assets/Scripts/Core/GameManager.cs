@@ -15,41 +15,44 @@ namespace Core
         [InfoBox("Endless mode level must be last in array")]
         [SerializeField] private LevelDefinition[] levelDefinition;
         
+        [SerializeField] private int accessibleLevel = 1;
         
         private LevelUiController _levelUiController;
         private SavingSystem _savingSystem;
         
         
-
-        [SerializeField] private int accessibleLevel = 1;
-
         private int _currentScene;
 
+        
         private void Awake()
         {
             _savingSystem = FindObjectOfType<SavingSystem>();
         }
-
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             _currentScene = SceneManager.GetActiveScene().buildIndex;
             
-            Debug.Log(_currentScene);
             if (_currentScene == 0)
             {
                 _savingSystem.Load();
                 FindObjectOfType<MainMenuUiController>().SetAccessibleLevel(accessibleLevel);
                 return;
             }
-            Debug.Log("Initialized");
-           _levelUiController = FindObjectOfType<LevelUiController>();
+            _levelUiController = FindObjectOfType<LevelUiController>();
            
-           FindObjectOfType<PlayerMover>().SetPlayerSpeed(levelDefinition[_currentScene -1].playerSpeed);
-           FindObjectOfType<PlatformManager>().Initialize(levelDefinition[_currentScene - 1]);
-           FindObjectOfType<EquationProvider>().Initialize(levelDefinition[_currentScene - 1]);
-           FindObjectOfType<PlatformManager>().levelFinished += LevelFinished;
-           FindObjectOfType<PlayerManager>().playerLost += LevelFinished;
+            InitializeCurrentLevel();
         }
+
+        private void InitializeCurrentLevel()
+        {
+            FindObjectOfType<PlayerMover>().SetPlayerSpeed(levelDefinition[_currentScene - 1].playerSpeed);
+            FindObjectOfType<PlatformManager>().Initialize(levelDefinition[_currentScene - 1]);
+            FindObjectOfType<EquationProvider>().Initialize(levelDefinition[_currentScene - 1]);
+            FindObjectOfType<PlatformManager>().levelFinished += LevelFinished;
+            FindObjectOfType<PlayerManager>().playerLost += LevelFinished;
+        }
+
+
         private void LevelFinished(bool playerWon)
         {
             if (playerWon)
@@ -69,7 +72,6 @@ namespace Core
             SceneManager.sceneUnloaded += OnSceneUnLoaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
-        
         
         void OnSceneUnLoaded(Scene scene)
         {

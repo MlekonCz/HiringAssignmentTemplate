@@ -22,8 +22,7 @@ namespace Platforms
         private IObjectPool<GameObject> _platformPool;
         protected int enemies;
         
-        public delegate void CallBackType(GameObject platform);
-        public event CallBackType platformCleared;
+        
         
         
         public virtual void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
@@ -47,18 +46,7 @@ namespace Platforms
             _platformPool = pool;
         }
 
-        public virtual void TriggerEnemyArea(GameObject triggerArea, GameObject player)
-        {
-            
-            if ( player.GetComponent<PlayerManager>().FacedEnemies(enemies))
-            {
-                triggerArea.SetActive(false);
-                platformCleared?.Invoke(gameObject); 
-                DestroyWall(player);
-            }
-            
-            
-        }
+        public abstract void TriggerEnemyArea(GameObject triggerArea, GameObject player);
 
         protected void DestroyWall(GameObject player)
         {
