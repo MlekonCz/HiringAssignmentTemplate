@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
+using Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -9,34 +11,32 @@ namespace Player
     {
         private AnimatorHandler _animatorHandler;
         
-        [SerializeField] private TMP_Text playerNumber_UI;
-        [SerializeField] private float startingNumber = 1f;
-        public float currentNumber;
+        [SerializeField] private TMP_Text _playerNumber_UI;
+        [SerializeField] private float _startingNumber = 1f;
+        
+         public float CurrentNumber;
 
         public delegate void CallBackType(bool playerWon);
-        public event CallBackType playerLost;
+        public event CallBackType PlayerLost;
 
 
 
         private void Start()
         {
             _animatorHandler = GetComponentInChildren<AnimatorHandler>();
-            currentNumber = startingNumber;
+            CurrentNumber = _startingNumber;
             UpdateUiNumber();
         }
 
         public void ChosenMathEquation(String mathEquation)
         {
-            string number = currentNumber.ToString() + mathEquation;
+            string number = CurrentNumber.ToString() + mathEquation;
             double result = Convert.ToDouble(new DataTable().Compute
                 (number,null));
             
             Mathf.CeilToInt((int)result);
-            currentNumber = (int)result;
-            if (currentNumber <1)
-            {
-                currentNumber = 1;
-            }
+            CurrentNumber = (int)result;
+            if (CurrentNumber <1){CurrentNumber = 1;}
             
             UpdateUiNumber();
         }
@@ -44,14 +44,13 @@ namespace Player
         public bool FacedEnemies(int numberOfEnemies)
         {
             _animatorHandler.PlayTargetAnimation("WallHit",0.2f);
-            currentNumber -= numberOfEnemies;
+            CurrentNumber -= numberOfEnemies;
             UpdateUiNumber();
 
-            if (currentNumber <= 0)
+            if (CurrentNumber <= 0)
             {
                 GetComponent<PlayerMover>().StopPlayer();
                 _animatorHandler.PlayTargetAnimation("Fall",0f);
-                playerLost?.Invoke(false);
                 return false;
             }
             else
@@ -61,7 +60,7 @@ namespace Player
         }
         private void UpdateUiNumber()
         {
-            playerNumber_UI.text = currentNumber.ToString();
+            _playerNumber_UI.text = CurrentNumber.ToString();
         }
 
         public void LevelFinished()

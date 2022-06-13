@@ -1,42 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Core;
 using Definitions;
-using Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Platforms
 {
-    public class EquationProvider : MonoBehaviour
-    {
-        private LevelDefinition levelDefinition;
-        private List<EquationDefinition> equation = new List<EquationDefinition>();
-        private List<EquationDefinition> givenEquations = new List<EquationDefinition>();
-
-        [SerializeField] private float highestPossibleNumber;
-        private int currentNumber;
     
-        private int index1;
-        private int index2;
+    public static class EquationProvider
+    {
+        private static float _highestPossibleNumber = 1;
+        private static List<EquationDefinition> s_equiations = new List<EquationDefinition>();
 
-        private void Start()
+        public static void Reset()
         {
-            highestPossibleNumber = FindObjectOfType<PlayerManager>().currentNumber;
-            currentNumber = Mathf.FloorToInt(highestPossibleNumber);
+            _highestPossibleNumber = 1;
         }
-        public void Initialize(LevelDefinition currentLevel)
-        {
-            levelDefinition = currentLevel;
-        }
-
-        public List<EquationDefinition> GetMathEquations()
-        {
-            equation.Clear();
-            index1 = 0;
-            index2 = 0;
         
-            var equationDefinition = levelDefinition.equationDefinitions;
+        public static List<EquationDefinition> GetMathEquations()
+        { 
+            s_equiations = new List<EquationDefinition>();
+            int index1 = 0;
+            int index2= 0;
+        
+            var equationDefinition = PersistentObjects.Instance.GameManager.CurrentLevelDefinition.EquationDefinitions;
 
             while (index1 == index2)
             {
@@ -44,18 +33,20 @@ namespace Platforms
                 index2 = Random.Range(0, equationDefinition.Length);
             }
 
-            equation.Add(equationDefinition[index1]); 
-            equation.Add(equationDefinition[index2]); 
-        
+            s_equiations.Add(equationDefinition[index1]); 
+            s_equiations.Add(equationDefinition[index2]); 
+            
             SimulateBestScore();
-        
-            return equation;
+            
+            return s_equiations;
         }
 
-        private void SimulateBestScore()
+        private static void SimulateBestScore()
         {
-            string number1 = highestPossibleNumber.ToString() + equation[0].mathEquation;
-            string number2 = highestPossibleNumber.ToString() + equation[1].mathEquation;
+            var equationDefinitions = PersistentObjects.Instance.GameManager.CurrentLevelDefinition.EquationDefinitions;
+            
+            string number1 = _highestPossibleNumber.ToString() + s_equiations[0].MathEquation;
+            string number2 = _highestPossibleNumber.ToString() + s_equiations[1].MathEquation;
         
             double firstNumber = Convert.ToDouble(new DataTable().Compute
                 (number1,null));
@@ -64,38 +55,27 @@ namespace Platforms
         
             if ((float)firstNumber > (float)secondNumber)
             {
-                highestPossibleNumber = (float)firstNumber;
+                _highestPossibleNumber = (float)firstNumber;
             }
             else
             {
-                highestPossibleNumber = (float)secondNumber;
+                _highestPossibleNumber = (float)secondNumber;
             }
-
-            highestPossibleNumber = Mathf.CeilToInt(highestPossibleNumber);
+            _highestPossibleNumber = Mathf.CeilToInt(_highestPossibleNumber);
         }
-
-  
-
-        public int GetNumberOfEnemies(float percentage)
+        public static int GetNumberOfEnemies(float percentage)
         {
             int enemies = 0;
 
-            enemies = Mathf.FloorToInt(highestPossibleNumber * percentage);
+            enemies = Mathf.FloorToInt(_highestPossibleNumber * percentage);
             enemies -= 1;
-        
-            if (enemies <= 0)
+            if (enemies <0)
             {
-                enemies = 1;
+                enemies = 0;
             }
-            highestPossibleNumber -= enemies;
+            _highestPossibleNumber -= enemies;
             
             return enemies;
         }
-    
-
-// String numberTest = "5 + 3";
-        // double result = Convert.ToDouble(new DataTable().Compute(numberTest, null));
-
-
     }
 }

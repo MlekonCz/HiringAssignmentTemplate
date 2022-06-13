@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,15 +20,13 @@ namespace Scenes
         private Button _mainMenuButton_P;
         private Button _mainMenuButton_W;
         private Button _mainMenuButton_L;
-
-
+        
         private VisualElement _root;
-
         private SceneLoader _sceneLoader;
         
         private void Awake()
         {
-            _sceneLoader = FindObjectOfType<SceneLoader>();
+            _sceneLoader = PersistentObjects.Instance.SceneLoader;
             _root = GetComponent<UIDocument>().rootVisualElement;
             AssignUiElements();
         }
@@ -36,6 +36,12 @@ namespace Scenes
             _wonMenu.visible = false;
             _lostMenu.visible = false;
             _pauseMenu.visible = false;
+            PersistentObjects.Instance.GameManager.OnLevelFinished += ShowMenu;
+        }
+
+        private void OnDestroy()
+        {
+            PersistentObjects.Instance.GameManager.OnLevelFinished -= ShowMenu;
         }
 
         private void AssignUiElements()
@@ -56,11 +62,23 @@ namespace Scenes
             
         }
 
-        public void ShowWonMenu()
+        private void ShowMenu(bool state)
+        {
+            if (state)
+            {
+                ShowWonMenu();
+            }
+            else
+            {
+                ShowLostMenu();
+            }
+        }
+        
+        private void ShowWonMenu()
         {
             StartCoroutine(DelayedWindowPopUp(_wonMenu, 2f));
         }
-        public void ShowLostMenu()
+        private void ShowLostMenu()
         {
             StartCoroutine(DelayedWindowPopUp(_lostMenu, 2f));
         }

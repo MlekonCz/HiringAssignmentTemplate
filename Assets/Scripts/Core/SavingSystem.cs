@@ -8,7 +8,7 @@ namespace Core
 {
     public class SavingSystem : MonoBehaviour
     {
-        private string SavePath => $"{Application.persistentDataPath}/save.txt";
+        private string _SavePath => $"{Application.persistentDataPath}/save.txt";
 
         [Button]
         public  void Save()
@@ -26,13 +26,13 @@ namespace Core
 
         private Dictionary<string, object> LoadFile()
         {
-            if (!File.Exists(SavePath))
+            if (!File.Exists(_SavePath))
             {
                 return new Dictionary<string, object>();
             }
             else
             {
-                using FileStream stream = File.Open(SavePath, FileMode.Open);
+                using FileStream stream = File.Open(_SavePath, FileMode.Open);
                 var formatter = new BinaryFormatter();
                 return (Dictionary<string, object>) formatter.Deserialize(stream);
             }
@@ -41,7 +41,7 @@ namespace Core
 
         private void SaveFile(object state)
         {
-            using var stream = File.Open(SavePath, FileMode.Create);
+            using var stream = File.Open(_SavePath, FileMode.Create);
             var formatter = new BinaryFormatter();
             formatter.Serialize(stream, state);
         }

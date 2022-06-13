@@ -1,69 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core;
 using Definitions;
 using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Serialization;
+using Walls;
 
 namespace Platforms
 {
     public abstract class Platform : MonoBehaviour
     {
-        [SerializeField] protected GameObject normalWall;
-        [SerializeField] private GameObject brokenWall;
-        [SerializeField] private TMP_Text wallNumber;
-        [SerializeField] private GameObject explosionParticle;
+        [SerializeField] private TMP_Text _wallNumber;
+        [SerializeField] private float _wallExplosionPower = 200f;
+        
+        
+        [SerializeField] protected Wall _wall;
 
-        [SerializeField] private float wallExplosionPower = 200f;
+        protected int _enemies;
         
-
-        private IObjectPool<GameObject> _platformPool;
-        protected int enemies;
-        
-        
-        
+        protected PlatformManager _platformManager;
         
         public virtual void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
         {
-            enemies = numberOfEnemies;
+            _enemies = numberOfEnemies;
             AssignEnemyNumber();
         }
         public virtual void Initialize(int numberOfEnemies)
         {
-            enemies = numberOfEnemies;
+            _enemies = numberOfEnemies;
             AssignEnemyNumber();
         }
-        
-        
+
+
         private void AssignEnemyNumber()
         {
-            wallNumber.text = enemies.ToString();
+            _wallNumber.text = _enemies.ToString();
         }
-        public void SetPool(IObjectPool<GameObject> pool)
-        {
-            _platformPool = pool;
-        }
-
-        public abstract void TriggerEnemyArea(GameObject triggerArea, GameObject player);
+   
+        public abstract void TriggerEnemyArea(GameObject player);
 
         protected void DestroyWall(GameObject player)
         {
-            Instantiate(explosionParticle, player.transform.position, Quaternion.identity);
-            normalWall.SetActive(false);
-            GameObject wallPieces = Instantiate(brokenWall, normalWall.transform.position,Quaternion.identity);
-            foreach (Transform child in wallPieces.transform)
+            _wall.SetBroken(player.transform.position);
+            foreach (Transform child in _wall.transform)
             {
                 if (child.TryGetComponent<Rigidbody>(out Rigidbody childRigidbody))
                 {
-                    childRigidbody.AddExplosionForce(wallExplosionPower,player.transform.position,7f );
+                    childRigidbody.AddExplosionForce(_wallExplosionPower,player.transform.position,7f );
                 }
             }
-            Destroy(wallPieces, 2f);
         }
-        
-        
-        
+
+
+        public void SetPosition(Vector3 pos)
+        {
+            transform.position = pos;
+            transform.rotation = Quaternion.identity;
+        }
+
+        public void SetManager(PlatformManager platformManager)
+        {
+            _platformManager = platformManager;
+        }
     }
 }

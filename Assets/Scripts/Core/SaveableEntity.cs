@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
     public class SaveableEntity : MonoBehaviour
     {
-        [SerializeField] private string id = string.Empty;
-        public string Id => id;
+      [SerializeField] private string _id = string.Empty;
+        public string Id => _id;
 
         
         [Button]
-        private void GenerateId() => id = Guid.NewGuid().ToString();
+        private void GenerateId() => _id = Guid.NewGuid().ToString();
         
         public object CaptureState()
         {

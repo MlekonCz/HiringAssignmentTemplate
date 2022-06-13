@@ -1,31 +1,24 @@
-using System;
 using System.Collections.Generic;
+using Core;
 using Definitions;
 using Player;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
 namespace Platforms
 {
     public class NormalPlatform : Platform
     {
-        [SerializeField] private GameObject canvas;
-        [SerializeField] private TMP_Text leftWall;
-        [SerializeField] private TMP_Text rightWall;
+        [SerializeField] private GameObject _canvas;
+        [SerializeField] private TMP_Text _leftWall;
+        [SerializeField] private TMP_Text _rightWall;
         
-
         private List<EquationDefinition> _equations = new List<EquationDefinition>();
-        private EquationProvider _equationProvider;
         
-        public delegate void CallBackType(GameObject platform);
-        public event CallBackType platformCleared;
-
-
         private void OnEnable()
         {
-            normalWall.SetActive(true);
+            _canvas.SetActive(true);
         }
 
         public override void Initialize(List<EquationDefinition> equationDefinitions, int numberOfEnemies)
@@ -40,33 +33,42 @@ namespace Platforms
             AssignEquations();
         }
 
-        public override void TriggerEnemyArea(GameObject triggerArea, GameObject player)
+        public override void TriggerEnemyArea(GameObject player)
         {
-            if ( player.GetComponent<PlayerManager>().FacedEnemies(enemies))
+            if (!player.TryGetComponent<PlayerManager>(out PlayerManager playerManager))
             {
-                triggerArea.SetActive(false);
-                platformCleared?.Invoke(gameObject); 
-                DestroyWall(player);
+                return;
             }
+
+            var shouldDestroy = playerManager.FacedEnemies(_enemies);
+            if (!shouldDestroy)
+            {
+                PersistentObjects.Instance.GameManager.OnLevelFinished?.Invoke(false);
+                return;
+            }
+            
+           
+            _platformManager.OnPlatformReleased?.Invoke(this);
+            DestroyWall(player);
         }
 
         private void AssignEquations()
         {
-            leftWall.text ="x "  + _equations[0].mathEquation; 
-            rightWall.text ="x "  + _equations[1].mathEquation;
+            _leftWall.text ="x "  + _equations[0].MathEquation; 
+            _rightWall.text ="x "  + _equations[1].MathEquation;
         }
 
         
         public void TriggerMathGate(bool isLeft,GameObject player)
         {
-            canvas.SetActive(false);
+            _canvas.SetActive(false);
             if (isLeft)
             {
-                player.GetComponent<PlayerManager>().ChosenMathEquation(_equations[0].mathEquation);
+                player.GetComponent<PlayerManager>().ChosenMathEquation(_equations[0].MathEquation);
             }
             else
             {
-                player.GetComponent<PlayerManager>().ChosenMathEquation(_equations[1].mathEquation);
+                player.GetComponent<PlayerManager>().ChosenMathEquation(_equations[1].MathEquation);
             }
         }
     }
