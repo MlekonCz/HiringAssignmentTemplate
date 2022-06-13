@@ -52,7 +52,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  playerSpeed: 5
 --- !u!114 &6290057150816760455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,9 +64,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9abcc466d941f4875909c7e0f0425d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber_UI: {fileID: 6290057151412939620}
-  startingNumber: 1
-  currentNumber: 1
+  _playerNumber_UI: {fileID: 6290057151412939620}
+  _startingNumber: 1
+  CurrentNumber: 0
 --- !u!54 &6290057150816760454
 Rigidbody:
   m_ObjectHideFlags: 0

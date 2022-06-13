@@ -3,7 +3,6 @@ using Definitions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -49,21 +48,12 @@ namespace Core
 
         private void OnEnable()
         {
-            SceneManager.sceneUnloaded += OnSceneUnLoaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        void OnSceneUnLoaded(Scene scene)
-        {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                return;
-            }
-        }
 
         private void OnDisable()
         {
-            SceneManager.sceneUnloaded -= OnSceneUnLoaded;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 

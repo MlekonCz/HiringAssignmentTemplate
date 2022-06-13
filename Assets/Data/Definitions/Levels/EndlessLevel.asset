@@ -20,7 +20,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c1ab458ed26233146ad329afc539b7bb, type: 2}
   - {fileID: 11400000, guid: c9708c73df8af654f94c272717f866cc, type: 2}
   - {fileID: 11400000, guid: 4f04e2f15652e564fa3726da82978b47, type: 2}
-  - {fileID: 11400000, guid: 81147f0d51f653b4d928f244c52647c6, type: 2}
   - {fileID: 11400000, guid: 052d5f63d0425c94d9f2b981cc1e4015, type: 2}
   - {fileID: 11400000, guid: 4a93e02fbf544364280e4cedda1eee47, type: 2}
   - {fileID: 11400000, guid: 642c6ace85f2ed544a435ebcf31540ac, type: 2}
@@ -35,6 +34,6 @@ MonoBehaviour:
     type: 3}
   IsEndlessMode: 1
   PlatformsToSpawn: 10
-  DifficultyOfNormalEnemies: 0.5
+  DifficultyOfNormalEnemies: 0.35
   DifficultyOfBoss: 0.9
   PlayerSpeed: 10
